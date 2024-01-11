@@ -65,7 +65,15 @@ const App = () => {
           }
         >
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="profile" element={<UserProfile />} />
+          <Route
+            path="profile"
+            element={
+              <UserProfile
+                user={user}
+                setIsAuthenticated={setIsAuthenticated}
+              />
+            }
+          />
           <Route path="accounts" element={<Accounts />} />
         </Route>
       </Route>
