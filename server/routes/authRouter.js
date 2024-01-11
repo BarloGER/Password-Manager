@@ -3,6 +3,8 @@ import {
   getUser,
   signIn,
   signUp,
+  editUser,
+  deleteUser,
   getAccounts,
   addAccount,
   editAccount,
@@ -15,6 +17,8 @@ import verifyToken from "../middlewares/verifyToken.js";
 const authRouter = Router();
 
 authRouter.get("/me", verifyToken, getUser);
+authRouter.put("/me", verifyToken, editUser);
+authRouter.delete("/me", verifyToken, deleteUser);
 
 authRouter.post("/signup", validateJoi(userSchema), signUp);
 authRouter.post("/signin", signIn);

@@ -70,6 +70,76 @@ export const signUp = asyncHandler(async (req, res, next) => {
   res.status(201).json({ token });
 });
 
+export const editUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req;
+  const { email, username, password } = req.body;
+
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ErrorResponse({
+      message: `User nicht gefunden.`,
+      statusCode: 404,
+      errorType: "Not Found",
+      errorCode: "AUTH_005",
+    });
+  }
+
+  const foundUserByEmail = await User.findOne({ email });
+  const foundUserByUsername = await User.findOne({ username });
+
+  if (foundUserByEmail && String(foundUserByEmail._id) !== String(userId)) {
+    throw new ErrorResponse({
+      message: "E-Mail existiert bereits",
+      statusCode: 403,
+      errorType: "Validation Error",
+      errorCode: "AUTH_001",
+    });
+  }
+
+  if (
+    foundUserByUsername &&
+    String(foundUserByUsername._id) !== String(userId)
+  ) {
+    throw new ErrorResponse({
+      message: "Benutzername existiert bereits",
+      statusCode: 403,
+      errorType: "Validation Error",
+      errorCode: "AUTH_002",
+    });
+  }
+
+  if (password) {
+    const hash = await bcrypt.hash(password, 5);
+    user.password = hash;
+  }
+
+  if (email) user.email = email;
+  if (username) user.username = username;
+
+  await user.save();
+
+  const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
+
+  res
+    .status(200)
+    .json({ token, message: "Benutzer erfolgreich aktualisiert." });
+});
+
+export const deleteUser = asyncHandler(async (req, res, next) => {
+  const { userId } = req;
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new ErrorResponse({
+      message: `User nicht gefunden.`,
+      statusCode: 404,
+      errorType: "Not Found",
+      errorCode: "AUTH_005",
+    });
+  }
+  await user.deleteOne();
+  res.status(200).json({ message: "User erfolgreich gelöscht." });
+});
+
 export const getAccounts = asyncHandler(async (req, res, next) => {
   const { userId } = req;
   const user = await User.findById(userId).select("accounts");
