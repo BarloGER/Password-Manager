@@ -1,5 +1,13 @@
 import { Router } from "express";
-import { getUser, signIn, signUp } from "../controllers/auth.js";
+import {
+  getUser,
+  signIn,
+  signUp,
+  getAccounts,
+  addAccount,
+  editAccount,
+  deleteAccount,
+} from "../controllers/auth.js";
 import { userSchema } from "../joi/userSchema.js";
 import validateJoi from "../middlewares/validateJoi.js";
 import verifyToken from "../middlewares/verifyToken.js";
@@ -10,6 +18,11 @@ authRouter.get("/me", verifyToken, getUser);
 
 authRouter.post("/signup", validateJoi(userSchema), signUp);
 authRouter.post("/signin", signIn);
+
+authRouter.get("/me/accounts", verifyToken, getAccounts);
+authRouter.post("/me/accounts", verifyToken, addAccount);
+authRouter.put("/me/accounts/:accountId", verifyToken, editAccount);
+authRouter.delete("/me/accounts/:accountId", verifyToken, deleteAccount);
 
 export default authRouter;
 
