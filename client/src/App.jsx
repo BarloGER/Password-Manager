@@ -5,6 +5,8 @@ import {
   Route,
 } from "react-router-dom";
 
+import { useAuth } from "./features/authentication";
+
 import GlobalLayout from "./layouts/GlobalLayout";
 import { ProtectedRoutes } from "./features/authentication";
 
@@ -15,8 +17,16 @@ import SignIn from "./pages/SignIn";
 import UserProfile from "./pages/UserProfile";
 
 const App = () => {
-  const isAuthenticated = true;
-  const loadingAuthRequest = false;
+  const {
+    token,
+    setToken,
+    isAuthenticated,
+    setIsAuthenticated,
+    user,
+    setUser,
+    loadingAuthRequest,
+    setLoadingAuthRequest,
+  } = useAuth();
 
   const router = createBrowserRouter(
     createRoutesFromElements(
