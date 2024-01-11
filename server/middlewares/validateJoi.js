@@ -52,11 +52,7 @@ export default validateJoi;
  * and `errorCode`, which help in sending a structured and meaningful error response to the client.
  *
  * Usage:
- *   const Joi = require('joi');
- *   const validateBody = validateJoi(Joi.object({
- *     username: Joi.string().required(),
- *     password: Joi.string().required()
- *   }));
+ *   authRouter.post("/signup", validateJoi(userSchema), signUp);
  *
  * Place this middleware before your route handlers to validate incoming request bodies.
  */
