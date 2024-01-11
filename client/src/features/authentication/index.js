@@ -1,5 +1,6 @@
 export { ProtectedRoutes } from "./layouts/ProtectedRoutes";
 export { SignInForm } from "./components/SignInForm";
+export { SignUpForm } from "./components/SignUpForm";
 
 export { useAuth } from "./services/authentication";
 
