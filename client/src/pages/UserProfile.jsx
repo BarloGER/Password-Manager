@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { editUser, deleteUser } from "../features/authentication";
 import UserProfileForm from "../components/forms/UserProfileForm";
+import api from "../lib/apiFacade";
 
 // ToDo: Seperate pw edit from editing user
 
@@ -26,7 +26,7 @@ const UserProfile = ({ user, setIsAuthenticated }) => {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-    await editUser(editedUser, token);
+    await api.editUser(editedUser, token);
     setIsEditing(false);
   };
 
@@ -35,7 +35,7 @@ const UserProfile = ({ user, setIsAuthenticated }) => {
       "Willst du deinen Account wirklich löschen?"
     );
     if (confirmation) {
-      await deleteUser(token);
+      await api.deleteUser(token);
       localStorage.removeItem("token");
       setIsAuthenticated(false);
     }

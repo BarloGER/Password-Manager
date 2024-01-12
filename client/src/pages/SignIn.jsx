@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { SignInForm } from "../features/authentication";
-import { loginUser } from "../features/authentication";
+import api from "../lib/apiFacade";
 
 const SignIn = ({
   setToken,
@@ -22,7 +22,7 @@ const SignIn = ({
     try {
       e.preventDefault();
       setLoadingAuthRequest(true);
-      const { data } = await loginUser({ email, password });
+      const { data } = await api.loginUser({ email, password });
       setToken(data.token);
       setLoadingAuthRequest(false);
       localStorage.setItem("token", data.token);

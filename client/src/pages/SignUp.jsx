@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { registerUser } from "../features/authentication";
 import { SignUpForm } from "../features/authentication";
+import api from "../lib/apiFacade";
 
 const SignUp = ({
   isAuthenticated,
@@ -35,7 +35,7 @@ const SignUp = ({
         return;
       }
 
-      const { data } = await registerUser({
+      const { data } = await api.registerUser({
         username,
         email,
         password,

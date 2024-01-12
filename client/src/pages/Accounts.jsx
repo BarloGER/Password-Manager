@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
-import {
-  getAccounts,
-  addAccountToUser,
-  editAccount,
-  deleteAccount,
-} from "../features/accounts";
 import { AccountForm } from "../features/accounts";
+import api from "../lib/apiFacade";
 
 const Accounts = () => {
   const [accounts, setAccounts] = useState(null);
@@ -23,7 +18,7 @@ const Accounts = () => {
   const token = localStorage.getItem("token");
 
   const fetchAccounts = async () => {
-    const res = await getAccounts(token);
+    const res = await api.getAccounts(token);
     if (res && res.data && res.data.accounts) {
       const sortedAccounts = res.data.accounts.sort((a, b) =>
         a.name.localeCompare(b.name)
@@ -52,7 +47,7 @@ const Accounts = () => {
 
   const addAccount = async () => {
     const account = { ...newAccount, password: newAccount.password };
-    await addAccountToUser(account, token);
+    await api.addAccountToUser(account, token);
     fetchAccounts();
     setNewAccount({
       _id: crypto.randomUUID(),
@@ -69,7 +64,7 @@ const Accounts = () => {
       "Willst du deinen Account wirklich löschen?"
     );
     if (confirmation) {
-      await deleteAccount(accountId, token);
+      await api.deleteAccount(accountId, token);
       fetchAccounts();
     }
   };
@@ -90,7 +85,7 @@ const Accounts = () => {
     const accountToEdit = accounts.find((acc) => acc._id === accountId);
     console.log(accountId);
     console.log(accountToEdit);
-    await editAccount(accountId, accountToEdit, token);
+    await api.editAccount(accountId, accountToEdit, token);
     setEditingAccount(null);
     fetchAccounts();
   };

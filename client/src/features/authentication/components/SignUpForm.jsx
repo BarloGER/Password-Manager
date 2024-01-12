@@ -8,8 +8,6 @@ export const SignUpForm = ({
   email,
   password,
   confirm_password,
-  master_password,
-  confirm_master_password,
 }) => {
   return (
     <section>
