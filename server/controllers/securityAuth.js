@@ -30,19 +30,8 @@ export const analyzePasswords = asyncHandler(async (req, res, next) => {
           insecurePasswords++;
         }
 
-        if (passwords.has(decryptedPassword)) {
-          passwords.set(
-            decryptedPassword,
-            passwords.get(decryptedPassword) + 1
-          );
-        } else {
-          passwords.set(decryptedPassword, 1);
-        }
-        passwords.forEach((count) => {
-          if (count > 1) {
-            duplicatePasswords += count;
-          }
-        });
+        const currentCount = passwords.get(decryptedPassword) || 0;
+        passwords.set(decryptedPassword, currentCount + 1);
       } else {
         throw new ErrorResponse({
           message: `Passwort für Account ${account.name} ist nicht verschlüsselt.`,
@@ -53,6 +42,12 @@ export const analyzePasswords = asyncHandler(async (req, res, next) => {
       }
     } catch (error) {
       console.error(error);
+    }
+  });
+
+  passwords.forEach((count, password) => {
+    if (count > 1) {
+      duplicatePasswords += count - 1; // Nur die zusätzlichen Instanzen zählen
     }
   });
 
