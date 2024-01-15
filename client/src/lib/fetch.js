@@ -12,12 +12,12 @@ export const apiFetch = async (url, options, token) => {
     const response = await fetch(API_BASE_URL + url, { ...options, headers });
     if (!response.ok) {
       const error = await response.json();
-      return { error }; // Zurückgeben des Fehlers anstelle des Werfens
+      return { error };
     }
     const data = await response.json();
     return { data };
   } catch (error) {
-    return { error }; // Zurückgeben des Netzwerkfehlers
+    return { error };
   }
 };
 

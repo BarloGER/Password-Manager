@@ -1,0 +1,62 @@
+/* ---------------------------------- Start of global color vars ---------------------------------- */
+
+:root {
+  --white: #fff;
+  --black: #333;
+  --red: #ff003c;
+  --gray: #5b6574;
+  --light-gray: #9ca2a8;
+  --dust: #af9c7c;
+  --main-color: #2e333b;
+  --navbar: #393f49;
+}
+
+/* ---------------------------------- End of global color vars ---------------------------------- */
+
+/* ---------------------------------- Start of global styling ---------------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%; /* 1 rem = 10px */
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background-color: var(--white);
+  font-family: "Roboto", sans-serif;
+  font-size: 10rem;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5%;
+}
+
+/* ---------------------------------- Debugging ---------------------------------- */
+.border {
+  border: 1px solid red;
+}
