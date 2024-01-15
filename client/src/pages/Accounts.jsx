@@ -10,6 +10,8 @@ const Accounts = () => {
     username: "",
     email: "",
     password: "",
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
   });
   const [displayedAccounts, setDisplayedAccounts] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -55,6 +57,8 @@ const Accounts = () => {
       username: "",
       email: "",
       password: "",
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     });
   };
 
@@ -82,9 +86,10 @@ const Accounts = () => {
 
   const handleEditSubmit = async (e, accountId) => {
     e.preventDefault();
-    const accountToEdit = accounts.find((acc) => acc._id === accountId);
-    console.log(accountId);
-    console.log(accountToEdit);
+    const accountToEdit = {
+      ...accounts.find((acc) => acc._id === accountId),
+      updated_at: new Date().toISOString(),
+    };
     await api.editAccount(accountId, accountToEdit, token);
     setEditingAccount(null);
     fetchAccounts();
