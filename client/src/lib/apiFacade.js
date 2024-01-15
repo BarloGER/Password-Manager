@@ -13,6 +13,8 @@ import {
   deleteUser,
 } from "../features/authentication";
 
+import { getSecurityData } from "../features/security-check";
+
 // Facade function
 const api = {
   // Account-methods
@@ -28,6 +30,9 @@ const api = {
   registerUser: (credentials) => registerUser(credentials),
   editUser: (updatedData, token) => editUser(updatedData, token),
   deleteUser: (token) => deleteUser(token),
+
+  // Security-methods
+  getSecurityData: (token) => getSecurityData(token),
 };
 
 export default api;
