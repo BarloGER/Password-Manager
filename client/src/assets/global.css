@@ -1,5 +1,4 @@
 /* ---------------------------------- Start of global color vars ---------------------------------- */
-
 :root {
   --white: #fff;
   --black: #333;
@@ -23,6 +22,12 @@
   font-family: "Roboto", sans-serif;
 }
 
+body {
+  background-color: var(--white);
+  font-family: "Roboto", sans-serif;
+  font-size: 10rem;
+}
+
 h1,
 h2,
 h3,
@@ -41,17 +46,10 @@ a {
   text-decoration: none;
 }
 
-body {
-  background-color: var(--white);
-  font-family: "Roboto", sans-serif;
-  font-size: 10rem;
-}
-
 section {
+  margin-top: 5rem;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  justify-content: center;
   align-items: center;
   padding: 0 5%;
 }
