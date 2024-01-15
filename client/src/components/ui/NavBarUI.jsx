@@ -6,7 +6,7 @@ const NavBarUI = () => {
     <nav className="navbar">
       <NavLink to="/auth/dashboard">Dashboard</NavLink>
       <NavLink to="/auth/accounts">Accounts</NavLink>
-      <NavLink to="/auth/profile">Profile</NavLink>
+      <NavLink to="/auth/profile">Profil</NavLink>
     </nav>
   );
 };
