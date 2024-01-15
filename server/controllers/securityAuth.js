@@ -11,6 +11,8 @@ export const analyzePasswords = asyncHandler(async (req, res, next) => {
   let securePasswords = 0;
   let insecurePasswords = 0;
   let duplicatePasswords = 0;
+  let insecurePWArr = [];
+  let duplicatePWArr = [];
 
   const passwords = new Map();
 
@@ -22,12 +24,12 @@ export const analyzePasswords = asyncHandler(async (req, res, next) => {
         account.password.encryptedData
       ) {
         const decryptedPassword = decrypt(account.password);
-        account.password = decryptedPassword;
 
         if (isPasswordSecure(decryptedPassword)) {
           securePasswords++;
         } else {
           insecurePasswords++;
+          insecurePWArr.push(account.name);
         }
 
         const currentCount = passwords.get(decryptedPassword) || 0;
@@ -41,20 +43,31 @@ export const analyzePasswords = asyncHandler(async (req, res, next) => {
         });
       }
     } catch (error) {
-      console.error(error);
+      console.error("Fehler beim Verarbeiten des Accounts:", account);
+      console.error(error.stack);
     }
   });
 
   passwords.forEach((count, password) => {
     if (count > 1) {
-      duplicatePasswords += count - 1; // Nur die zusätzlichen Instanzen zählen
+      duplicatePasswords += count - 1;
+      user.accounts.forEach((account) => {
+        const decryptedPassword = decrypt(account.password);
+        if (decryptedPassword === password) {
+          duplicatePWArr.push(account.name);
+        }
+      });
     }
   });
+
+  duplicatePWArr = [...new Set(duplicatePWArr)];
 
   res.status(200).json({
     accountsTotal: user.accounts.length,
     securePasswords,
     insecurePasswords,
     duplicatePasswords,
+    insecurePWArr,
+    duplicatePWArr,
   });
 });
