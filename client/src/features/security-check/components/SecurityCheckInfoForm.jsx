@@ -1,9 +1,10 @@
-import { SecurityStatusCircle } from "./SecurityStatusCircle";
+import { SecurityCheckStatusCircle } from "./SecurityCheckStatusCircle";
 
-export const SecurityCheckForm = ({
+export const SecurityCheckInfoForm = ({
   securityData,
   calculatedSecurityStatus,
 }) => {
+  console.log(securityData);
   return (
     <section className="dashboard">
       {securityData ? (
@@ -14,7 +15,9 @@ export const SecurityCheckForm = ({
           <p>Anzahl unsicherer Passwörter: {securityData.insecurePasswords}</p>
           <p>Anzahl doppelter Passwörter: {securityData.duplicatePasswords}</p>
           <p>Sicherheitsstatus: {calculatedSecurityStatus}%</p>
-          <SecurityStatusCircle securityStatus={calculatedSecurityStatus} />
+          <SecurityCheckStatusCircle
+            securityStatus={calculatedSecurityStatus}
+          />
         </div>
       ) : (
         <div className="security-info">
@@ -24,7 +27,7 @@ export const SecurityCheckForm = ({
           <p>Anzahl unsicherer Passwörter: Noch keine Accounts angelegt</p>
           <p>Anzahl doppelter Passwörter: Noch keine Accounts angelegt</p>
           <p>Sicherheitsstatus: Noch keine Accounts angelegt</p>
-          <SecurityStatusCircle securityStatus={0} />
+          <SecurityCheckStatusCircle securityStatus={0} />
         </div>
       )}
     </section>

@@ -1,6 +1,6 @@
 import "../assets/status-circle.css";
 
-export const SecurityStatusCircle = ({ securityStatus }) => {
+export const SecurityCheckStatusCircle = ({ securityStatus }) => {
   const radius = 100;
   const strokeWidth = 30;
   const normalizedRadius = radius - strokeWidth / 2;

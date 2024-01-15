@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import api from "../../../lib/apiFacade";
-import { SecurityCheckForm } from "../components/SecurityCheckForm";
+
+import { SecurityCheckInfoForm } from "../components/SecurityCheckInfoForm";
+import { SecurityCheckPasswordsForm } from "../components/SecurityCheckPasswordsForm";
 
 export const SecurityCheck = () => {
   const [securityData, setSecurityData] = useState(null);
@@ -47,9 +49,12 @@ export const SecurityCheck = () => {
     : 0;
 
   return (
-    <SecurityCheckForm
-      securityData={securityData}
-      calculatedSecurityStatus={calculatedSecurityStatus}
-    />
+    <>
+      <SecurityCheckInfoForm
+        securityData={securityData}
+        calculatedSecurityStatus={calculatedSecurityStatus}
+      />
+      <SecurityCheckPasswordsForm securityData={securityData} />
+    </>
   );
 };
