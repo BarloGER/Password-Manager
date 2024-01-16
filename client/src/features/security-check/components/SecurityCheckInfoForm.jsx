@@ -7,7 +7,7 @@ export const SecurityCheckInfoForm = ({
 }) => {
   console.log(securityData);
   return (
-    <section className="security-check-info-container border">
+    <section className="security-check-info-container">
       {securityData ? (
         <div className="security-info">
           <h2>Sicherheitsinfos</h2>

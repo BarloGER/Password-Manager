@@ -1,8 +1,7 @@
 /* ---------------------------------- Start of navbar styling ---------------------------------- */
 
 .navbar {
-  background-color: var(--red);
-  color: var(--white);
+  background-color: var(--component-color);
   display: flex;
   justify-content: space-around;
   padding: 2rem 0;
@@ -13,7 +12,7 @@
 }
 
 .navbar a {
-  color: var(--white);
+  color: var(--text-color);
   font-size: 1.4rem;
   text-transform: uppercase;
 }

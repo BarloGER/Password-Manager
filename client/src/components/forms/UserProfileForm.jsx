@@ -54,7 +54,9 @@ const UserProfileForm = ({
               Profil bearbeiten
             </button>
             <button onClick={logOut}>Logout</button>
-            <button onClick={deleteAccount}>Account löschen</button>
+            <button className="delete-account-button" onClick={deleteAccount}>
+              Account löschen
+            </button>
           </>
         )}
       </div>

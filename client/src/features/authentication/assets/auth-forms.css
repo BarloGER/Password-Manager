@@ -9,6 +9,8 @@
 .auth-title {
   text-align: center;
   width: 100%;
+  color: var(--text-color);
+  margin-bottom: 3rem;
 }
 
 .auth-container form {
@@ -21,9 +23,11 @@
   width: 100%;
   padding: 15px;
   margin: 10px 0;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
   font-size: 1.4rem;
+  background-color: var(--input-color);
+  color: var(--text-color);
 }
 
 .auth-button {
@@ -35,35 +39,44 @@
   font-size: 1.6rem;
   font-weight: bold;
   transition: all 0.3s ease;
+  background-color: var(--button-color);
+  color: var(--text-color);
+}
+
+.auth-button:hover {
+  background-color: var(--button-color-hover);
+}
+
+.auth-error {
+  color: var(--error-color);
 }
 
 .auth-submit-button {
-  background-color: var(--red);
-  color: var(--white);
+  background-color: var(--button-color);
+  color: var(--text-color);
 }
 
 .auth-switch-button {
-  background-color: var(--gray);
-  color: var(--white);
+  background-color: var(--component-color);
+  color: var(--text-color);
 }
 
 .auth-text {
   text-align: center;
-  color: var(--gray);
+  color: var(--text-color);
 }
 
 .auth-input:focus,
 .auth-button:focus {
-  outline: 3px solid var(--dust);
+  outline: 3px solid var(--input-focus-color);
   outline-offset: 2px;
 }
 
 @media (min-width: 768px) {
   .auth-container form {
     padding: 20px;
-    border: 1px solid var(--light-gray);
     border-radius: 8px;
-    background-color: var(--white);
+    background-color: var(--component-background-color);
   }
 
   .auth-input,

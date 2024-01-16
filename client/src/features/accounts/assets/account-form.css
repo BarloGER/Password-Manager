@@ -5,11 +5,16 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  background-color: var(--background-color);
 }
 
 .account-title {
-  color: var(--main-color);
+  color: var(--text-color);
   margin-bottom: 1rem;
+}
+
+.account-info p {
+  color: var(--text-color);
 }
 
 .account-search-input {
@@ -17,8 +22,10 @@
   max-width: 400px;
   margin-bottom: 1rem;
   padding: 0.5rem;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
+  background-color: var(--input-color);
+  color: var(--text-color);
 }
 
 .account-cards-container {
@@ -29,7 +36,7 @@
 }
 
 .account-card {
-  background-color: var(--white);
+  background-color: var(--component-background-color);
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -40,6 +47,7 @@
   width: 100%;
   min-height: 150px;
   max-width: 400px;
+  color: var(--text-color);
 }
 
 .account-card * {
@@ -47,8 +55,8 @@
 }
 
 .new-account-form {
-  border: 2px solid var(--main-color);
   font-size: 3rem;
+  
 }
 
 .account-card input,
@@ -59,12 +67,43 @@
   padding: 0.75rem;
   margin-bottom: 1rem;
   border-radius: 4px;
-  border: 1px solid var(--gray);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.account-card input {
+  background-color: var(--input-color);
+  color:var(--text-color)
+}
+
+.account-card input:focus {
+  border-color: var(--input-focus-color);
+}
+
+.account-card button {
+  background-color: var(--button-color);
+}
+
+.account-card button:hover {
+  background-color: var(--button-color-hover);
 }
 
 .new-account-form button {
-  background-color: var(--red);
+  background-color: var(--button-color);
   color: var(--white);
+}
+
+.new-account-form input {
+  background-color: var(--input-color);
+  color:var(--text-color)
+}
+
+.new-account-form input:focus {
+  border-color: var(--input-focus-color);
+}
+
+.new-account-form button:hover {
+  background-color: var(--button-color-hover);
 }
 
 .input-icon-container {
@@ -82,7 +121,7 @@
   right: 4rem;
   top: 20%;
   cursor: pointer;
-  color: var(--gray);
+  color: var(--text-color);
   font-size: 2.5rem;
 }
 
@@ -91,12 +130,13 @@
   right: 1rem;
   top: 20%;
   cursor: pointer;
-  color: var(--gray);
+  color: var(--text-color);
   font-size: 2.5rem;
 }
 
 .no-accounts-text {
   text-align: center;
+  color: var(--text-color);
 }
 
 .account-info {
@@ -108,24 +148,13 @@
 .account-actions {
   display: flex;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 10px;/
 }
 
 .icon {
   cursor: pointer;
   font-size: 24px;
-}
-
-.MdModeEdit {
-  color: var(--main-color);
-}
-
-.MdDelete {
-  color: var(--red);
-}
-
-.FaEye {
-  color: var(--gray);
+  color: var(--text-color);
 }
 
 @media (min-width: 768px) {

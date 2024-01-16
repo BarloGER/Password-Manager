@@ -1,13 +1,18 @@
 /* ---------------------------------- Start of global color vars ---------------------------------- */
+
 :root {
-  --white: #fff;
-  --black: #333;
-  --red: #ff003c;
-  --gray: #5b6574;
-  --light-gray: #9ca2a8;
-  --dust: #af9c7c;
-  --main-color: #2e333b;
-  --navbar: #393f49;
+  --component-color: #252c41;
+  --component-background-color: #2b3348;
+  --background-color: #1c2029;
+  --text-color: #d1d1d1;
+  --button-color: #3a8dca;
+  --button-color-hover: #2b3348;
+  --input-color: #2a3147;
+  --input-focus-color: #3a8dca;
+  --border-color: #3a3f4b;
+  --success-color: #27ae60;
+  --warning-color: #f2c94c;
+  --error-color: #cd1605;
 }
 
 /* ---------------------------------- End of global color vars ---------------------------------- */
@@ -23,7 +28,7 @@
 }
 
 body {
-  background-color: var(--white);
+  background-color: var(--background-color);
   font-family: "Roboto", sans-serif;
   font-size: 10rem;
 }
@@ -48,5 +53,5 @@ a {
 
 /* ---------------------------------- Debugging ---------------------------------- */
 .border {
-  border: 1px solid red;
+  border: 1px solid var(--error-color);
 }

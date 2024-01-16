@@ -1,6 +1,6 @@
 .backup {
-  background-color: #333;
-  color: white;
+  background-color: var(--component-color);
+  color: var(--text-color);
   padding: 20px;
   border-radius: 10px;
   display: flex;
@@ -13,9 +13,9 @@
 }
 
 .backup-textarea {
-  background-color: #555;
+  background-color: var(--input-color);
   border: none;
-  color: white;
+  color: var(--text-color);
   padding: 10px;
   border-radius: 5px;
   width: 100%;
@@ -33,15 +33,15 @@
   padding: 10px;
   border-radius: 5px;
   border: none;
-  background-color: #777;
-  color: white;
+  background-color: var(--button-color);
+  color: var(--text-color);
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 1.5rem;
 }
 
 .backup-actions button:hover {
-  background-color: #888;
+  background-color: var(--button-color-hover);
 }
 
 @media (min-width: 1024px) {
