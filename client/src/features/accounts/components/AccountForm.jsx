@@ -1,6 +1,9 @@
-import "../assets/account-form.css";
+import { useState } from "react";
+import { generatePassword } from "../../password-generator";
 import { MdModeEdit, MdDelete } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { CgPassword } from "react-icons/cg";
+import "../assets/account-form.css";
 
 export const AccountForm = ({
   searchTerm,
@@ -18,6 +21,17 @@ export const AccountForm = ({
   showPasswordId,
   setShowPasswordId,
 }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const handlePasswordGeneration = () => {
+    const newPassword = generatePassword(12); // Passwort-Länge anpassen, wenn nötig
+    handleInputChange({ target: { name: "password", value: newPassword } });
+  };
+
   return (
     <section className="account-container">
       <input
@@ -54,15 +68,34 @@ export const AccountForm = ({
             value={newAccount.email}
             onChange={handleInputChange}
           />
-          <input
-            type="text"
-            name="password"
-            placeholder="Password"
-            value={newAccount.password}
-            onChange={handleInputChange}
-            required
-          />
-          <button type="submit">Account hinzufügen</button>
+          <div className="input-icon-container">
+            <input
+              type={isPasswordVisible ? "text" : "password"}
+              name="password"
+              placeholder="Passwort"
+              value={newAccount.password}
+              onChange={handleInputChange}
+              required
+            />
+            <CgPassword
+              className="input-icon-1 cg-password"
+              onClick={handlePasswordGeneration}
+            />
+            {isPasswordVisible ? (
+              <FaEyeSlash
+                className="input-icon-2 fa-eye"
+                onClick={togglePasswordVisibility}
+              />
+            ) : (
+              <FaEye
+                className="input-icon-2 fa-eye"
+                onClick={togglePasswordVisibility}
+              />
+            )}
+          </div>
+          <button type="submit" className="new-account-form-button">
+            Account hinzufügen
+          </button>
         </form>
         {displayedAccounts && displayedAccounts.length > 0 ? (
           displayedAccounts.map((account, index) => (
@@ -115,14 +148,17 @@ export const AccountForm = ({
               )}
 
               <div className="account-actions">
-                <FaEye
-                  className="icon"
-                  onClick={() =>
-                    setShowPasswordId(
-                      showPasswordId === account._id ? null : account._id
-                    )
-                  }
-                />
+                {showPasswordId === account._id ? (
+                  <FaEyeSlash
+                    className="icon"
+                    onClick={() => setShowPasswordId(null)}
+                  />
+                ) : (
+                  <FaEye
+                    className="icon"
+                    onClick={() => setShowPasswordId(account._id)}
+                  />
+                )}
                 <MdModeEdit
                   className="icon"
                   onClick={() =>

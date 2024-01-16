@@ -1,10 +1,12 @@
-import { SecurityCheck } from "../features/security-check/pages/SecurityCheck";
+import { SecurityCheck } from "../features/security-check";
+import { PasswordGenerator } from "../features/password-generator";
 import "../assets/dashboard.css";
 
 const Dashboard = () => {
   return (
     <section className="dashboard">
       <SecurityCheck />
+      <PasswordGenerator />
     </section>
   );
 };
