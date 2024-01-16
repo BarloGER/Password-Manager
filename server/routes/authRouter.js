@@ -12,6 +12,11 @@ import {
   editUser,
   deleteUser,
 } from "../controllers/userAuth.js";
+import {
+  downloadBackup,
+  downloadBackupDecrypted,
+  uploadBackup,
+} from "../controllers/backupAuth.js";
 import { analyzePasswords } from "../controllers/securityAuth.js";
 import { userSchema } from "../joi/userSchema.js";
 import validateJoi from "../middlewares/validateJoi.js";
@@ -30,6 +35,10 @@ authRouter.get("/me/accounts", verifyToken, getAccounts);
 authRouter.post("/me/accounts", verifyToken, addAccount);
 authRouter.put("/me/accounts/:accountId", verifyToken, editAccount);
 authRouter.delete("/me/accounts/:accountId", verifyToken, deleteAccount);
+
+authRouter.get("/me/backup", verifyToken, downloadBackup);
+authRouter.get("/me/backup/decrypted", verifyToken, downloadBackupDecrypted);
+authRouter.post("/me/backup", verifyToken, uploadBackup);
 
 authRouter.get("/me/analyze-passwords", verifyToken, analyzePasswords);
 
