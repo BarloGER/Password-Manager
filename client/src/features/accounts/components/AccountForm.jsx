@@ -28,7 +28,7 @@ export const AccountForm = ({
   };
 
   const handlePasswordGeneration = () => {
-    const newPassword = generatePassword(12); // Passwort-Länge anpassen, wenn nötig
+    const newPassword = generatePassword(12);
     handleInputChange({ target: { name: "password", value: newPassword } });
   };
 
