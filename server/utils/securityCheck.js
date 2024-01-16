@@ -3,7 +3,7 @@ export const isPasswordSecure = (password) => {
   const hasUpperCase = /[A-Z]/.test(password);
   const hasLowerCase = /[a-z]/.test(password);
   const hasNumbers = /\d/.test(password);
-  const hasSpecialChars = /[§$%&!?]/.test(password);
+  const hasSpecialChars = /[!@#$%^&*()_+~`|}{[\]:;?><,./-]/.test(password);
 
   return (
     password.length >= minLength &&
