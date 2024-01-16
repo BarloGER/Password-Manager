@@ -1,4 +1,5 @@
 import { SecurityCheckStatusCircle } from "./SecurityCheckStatusCircle";
+import "../assets/security-check.css";
 
 export const SecurityCheckInfoForm = ({
   securityData,
@@ -6,7 +7,7 @@ export const SecurityCheckInfoForm = ({
 }) => {
   console.log(securityData);
   return (
-    <section className="dashboard">
+    <section className="security-check-info-container border">
       {securityData ? (
         <div className="security-info">
           <h2>Sicherheitsinfos</h2>

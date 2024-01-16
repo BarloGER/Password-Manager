@@ -1,3 +1,5 @@
+import "../assets/security-check.css";
+
 export const SecurityCheckPasswordsForm = ({ securityData }) => {
   if (
     !securityData ||
@@ -12,7 +14,7 @@ export const SecurityCheckPasswordsForm = ({ securityData }) => {
   }
 
   return (
-    <section className="security-check">
+    <section className="security-check-password-container border">
       <div className="insecure-passwords">
         <h2>Unsichere Passwörter</h2>
         <ul>

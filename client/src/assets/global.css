@@ -46,14 +46,6 @@ a {
   text-decoration: none;
 }
 
-section {
-  margin-top: 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 5%;
-}
-
 /* ---------------------------------- Debugging ---------------------------------- */
 .border {
   border: 1px solid red;

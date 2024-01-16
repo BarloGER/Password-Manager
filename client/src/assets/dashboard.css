@@ -1,17 +1,75 @@
-.dashboard {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
+section {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.security-info,
-.insecure-passwords,
-.duplicate-passwords,
+.dashboard {
+  max-width: 1800px;
+  max-height: 1000px;
+  display: grid;
+  height: 100vh;
+  padding: 16px;
+  grid-template-areas:
+    "security-info"
+    "security-passwords"
+    "password-generator"
+    "backup";
+}
+
+.security-check-info-container,
+.security-check-password-container,
 .password-generator,
-.local-backup {
-  background: #333;
-  color: #fff;
-  padding: 20px;
-  border-radius: 10px;
+.backup {
+  background-color: #333;
+  height: auto;
+  border-radius: 20px;
+}
+
+.security-check-info-container {
+  grid-area: security-info;
+}
+
+.security-check-password-container {
+  grid-area: security-passwords;
+}
+
+.password-generator {
+  grid-area: password-generator;
+}
+
+.backup {
+  grid-area: backup;
+}
+
+@media (min-width: 1024px) {
+  section {
+    margin-top: 0;
+  }
+  .dashboard {
+    font-size: 4rem;
+    grid-gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas:
+      "security-info security-info security-passwords security-passwords"
+      "security-info security-info security-passwords security-passwords"
+      "security-info security-info password-generator backup"
+      "security-info security-info password-generator backup";
+  }
+
+  .security-check-info-container,
+  .security-check-password-container,
+  .password-generator,
+  .backup {
+    height: 100%;
+  }
+
+  .security-check-container,
+  .security-check-info-container,
+  .security-check-password-container {
+    grid-template-columns: none;
+  }
 }

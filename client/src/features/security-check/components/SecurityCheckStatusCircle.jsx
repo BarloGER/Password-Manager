@@ -1,4 +1,4 @@
-import "../assets/status-circle.css";
+import "../assets/security-check.css";
 
 export const SecurityCheckStatusCircle = ({ securityStatus }) => {
   const radius = 100;

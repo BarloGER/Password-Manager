@@ -1,0 +1,117 @@
+.security-check-info-container {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 2rem;
+}
+
+.security-check-info-container h2 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.security-check-info-container p {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+}
+
+.security-info {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.security-status-circle {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  margin: 20px 0;
+}
+
+.security-status-text {
+  font-size: 3em;
+  fill: white;
+  font-weight: bold;
+  transform: rotate(90deg);
+}
+
+.security-status-circle circle:first-child {
+  stroke: #ff003c;
+}
+
+.security-status-circle circle:nth-child(2) {
+  stroke: #4caf50;
+}
+
+.security-check-password-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+.insecure-passwords,
+.duplicate-passwords {
+  background-color: #222;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 20px;
+  font-size: 3rem;
+}
+
+.insecure-passwords h2,
+.duplicate-passwords h2 {
+  margin-bottom: 20px;
+}
+
+.insecure-passwords ul,
+.duplicate-passwords ul {
+  list-style: none;
+  padding: 0;
+}
+
+.insecure-passwords li,
+.duplicate-passwords li {
+  background-color: #333;
+  border: 1px solid #444;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+@media (min-width: 1024px) {
+  .security-check-info-container {
+    font-size: 4rem;
+  }
+
+  .security-check-password-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: scroll;
+    overflow-x: hidden;
+    gap: 20px;
+  }
+
+  .insecure-passwords,
+  .duplicate-passwords {
+    margin-bottom: 0;
+    font-size: 4rem;
+    width: 100%;
+  }
+
+  .security-status-circle {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    margin: 70px 0;
+  }
+}

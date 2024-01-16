@@ -1,0 +1,62 @@
+.backup {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.backup h2 {
+  align-self: center;
+}
+
+.backup-textarea {
+  background-color: #555;
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  height: 150px;
+  resize: none;
+}
+
+.backup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.backup-actions button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1.5rem;
+}
+
+.backup-actions button:hover {
+  background-color: #888;
+}
+
+@media (min-width: 1024px) {
+  .backup {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .backup-actions {
+    flex-direction: column;
+    width: 200px;
+  }
+
+  .backup-textarea {
+    height: 250px;
+  }
+}
