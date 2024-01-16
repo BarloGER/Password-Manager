@@ -1,3 +1,5 @@
+import "../assets/password-generator-form.css";
+
 export const PasswordGeneratorForm = ({
   handleGenerate,
   generatedPassword,
@@ -6,18 +8,24 @@ export const PasswordGeneratorForm = ({
 }) => {
   return (
     <section className="password-generator">
-      <label htmlFor="password-length">Länge</label>
-      <input
-        id="password-length"
-        type="number"
-        value={passwordLength}
-        onChange={(e) => setPasswordLength(Number(e.target.value))}
-      />
-      <button onClick={handleGenerate}>Generieren</button>
-      <input type="text" value={generatedPassword} readOnly />
-      <button onClick={() => navigator.clipboard.writeText(generatedPassword)}>
-        Kopieren
-      </button>
+      <h3>Passwort Generator</h3>
+      <div className="password-length-wrapper">
+        <input
+          id="password-length"
+          type="number"
+          value={passwordLength}
+          onChange={(e) => setPasswordLength(Number(e.target.value))}
+        />
+        <button onClick={handleGenerate}>Generieren</button>
+      </div>
+      <div className="generated-password-wrapper">
+        <input type="text" value={generatedPassword} readOnly />
+        <button
+          onClick={() => navigator.clipboard.writeText(generatedPassword)}
+        >
+          Kopieren
+        </button>
+      </div>
     </section>
   );
 };
