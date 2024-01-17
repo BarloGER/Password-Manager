@@ -63,7 +63,7 @@ export const downloadBackupDecrypted = asyncHandler(async (req, res, next) => {
 export const uploadBackup = asyncHandler(async (req, res, next) => {
   const { userId } = req;
   const parsedBody = JSON.parse(req.body.backup);
-  const backupData = parsedBody.data;
+  const backupData = parsedBody;
 
   console.log(backupData);
 
