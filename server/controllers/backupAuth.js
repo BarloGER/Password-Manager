@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
+import validateJoi from "../middlewares/validateJoi.js";
+import { backupSchema } from "../joi/backupSchema.js";
 import { encrypt, decrypt } from "../utils/crypto.js";
 
 export const downloadBackup = asyncHandler(async (req, res, next) => {
@@ -62,17 +64,28 @@ export const downloadBackupDecrypted = asyncHandler(async (req, res, next) => {
 
 export const uploadBackup = asyncHandler(async (req, res, next) => {
   const { userId } = req;
-  const parsedBody = JSON.parse(req.body.backup);
-  const backupData = parsedBody;
 
-  console.log(backupData);
-
-  if (!backupData || typeof backupData !== "object" || !backupData.accounts) {
+  let backupData;
+  try {
+    backupData = JSON.parse(req.body.backup);
+  } catch (error) {
     return next(
       new ErrorResponse({
-        message: "Backup-Daten haben ein ungültiges Format oder fehlen.",
+        message: "Backup-Daten konnten nicht geparst werden.",
         statusCode: 400,
         errorType: "Bad Request",
+        errorCode: "BACKUP_004",
+      })
+    );
+  }
+
+  const { error } = backupSchema.validate(backupData);
+  if (error) {
+    return next(
+      new ErrorResponse({
+        message: error.details[0].message,
+        statusCode: 400,
+        errorType: "Validation Error",
         errorCode: "BACKUP_005",
       })
     );
