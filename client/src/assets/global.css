@@ -1,6 +1,7 @@
 /* ---------------------------------- Start of global color vars ---------------------------------- */
 
-:root {
+/* Design 1 */
+/* :root {
   --component-color: #252c41;
   --component-background-color: #2b3348;
   --background-color: #1c2029;
@@ -13,6 +14,38 @@
   --success-color: #27ae60;
   --warning-color: #f2c94c;
   --error-color: #cd1605;
+} */
+
+/* Design 2 */
+/* :root {
+  --component-color: #394053; 
+  --component-background-color: #323a4f; 
+  --background-color: #262b38; 
+  --text-color: #f8f8f2; 
+  --button-color: #f29559; 
+  --button-color-hover: #f27735; 
+  --input-color: #3b4252; 
+  --input-focus-color: #d08770; 
+  --border-color: #434c5e; 
+  --success-color: #a3be8c; 
+  --warning-color: #ebcb8b;
+  --error-color: #bf616a; 
+} */
+
+/* Design 3 */
+:root {
+  --component-color: #2e3440;
+  --component-background-color: #3b4252;
+  --background-color: #2b303b;
+  --text-color: #e5e9f0;
+  --button-color: #5e81ac;
+  --button-color-hover: #81a1c1;
+  --input-color: #434c5e;
+  --input-focus-color: #88c0d0;
+  --border-color: #4c566a;
+  --success-color: #8fbcbb;
+  --warning-color: #d08770;
+  --error-color: #bf616a;
 }
 
 /* ---------------------------------- End of global color vars ---------------------------------- */

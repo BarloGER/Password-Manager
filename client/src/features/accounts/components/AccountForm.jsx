@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { generatePassword } from "../../password-generator";
 import { MdModeEdit, MdDelete } from "react-icons/md";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaCopy } from "react-icons/fa";
 import { CgPassword } from "react-icons/cg";
 import "../assets/account-form.css";
 
@@ -159,6 +159,12 @@ export const AccountForm = ({
                     onClick={() => setShowPasswordId(account._id)}
                   />
                 )}
+                <FaCopy
+                  className="icon"
+                  onClick={() =>
+                    navigator.clipboard.writeText(account.password)
+                  }
+                />
                 <MdModeEdit
                   className="icon"
                   onClick={() =>
