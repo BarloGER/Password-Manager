@@ -94,6 +94,30 @@
   border-radius: 5px;
 }
 
+.security-check-password-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.security-check-password-container::-webkit-scrollbar-track {
+  background: var(--component-color);
+  border-radius: 10px;
+}
+
+.security-check-password-container::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 10px;
+  border: 3px solid var(--component-color);
+}
+
+.security-check-password-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--component-color);
+}
+
+.security-check-password-container::-webkit-scrollbar-thumb:hover {
+  background-color: darken(var(--border-color), 10%);
+}
+
 @media (min-width: 1125px) {
   .security-check-info-container {
     font-size: 3rem;

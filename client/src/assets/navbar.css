@@ -3,8 +3,9 @@
 .navbar {
   background-color: var(--component-color);
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   padding: 2rem 0;
+  gap: 2rem;
   position: fixed;
   top: 0;
   width: 100%;
@@ -15,6 +16,10 @@
   color: var(--text-color);
   font-size: 1.4rem;
   text-transform: uppercase;
+}
+
+.navbar a.active {
+  color: var(--input-focus-color);
 }
 
 /* ---------------------------------- End of navbar styling ---------------------------------- */
