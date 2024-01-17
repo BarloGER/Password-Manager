@@ -2,43 +2,95 @@ import { apiFetch } from "../../../lib/fetch";
 
 // Funktionen für Account-Interaktionen
 export const getAccounts = async (token) => {
-  return apiFetch(`/auth/me/accounts`, { method: "GET" }, token);
+  try {
+    const response = await apiFetch(
+      `/auth/me/accounts`,
+      { method: "GET" },
+      token
+    );
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const addAccountToUser = async (account, token) => {
-  return apiFetch(
-    `/auth/me/accounts`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+  try {
+    const response = await apiFetch(
+      `/auth/me/accounts`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ account }),
       },
-      body: JSON.stringify({ account }),
-    },
-    token
-  );
+      token
+    );
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const editAccount = async (accountId, updatedAccount, token) => {
-  return apiFetch(
-    `/auth/me/accounts/${accountId}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
+  try {
+    const response = await apiFetch(
+      `/auth/me/accounts/${accountId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ updatedAccount }),
       },
-      body: JSON.stringify({ updatedAccount }),
-    },
-    token
-  );
+      token
+    );
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const deleteAccount = async (accountId, token) => {
-  return apiFetch(
-    `/auth/me/accounts/${accountId}`,
-    {
-      method: "DELETE",
-    },
-    token
-  );
+  try {
+    const response = await apiFetch(
+      `/auth/me/accounts/${accountId}`,
+      {
+        method: "DELETE",
+      },
+      token
+    );
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };

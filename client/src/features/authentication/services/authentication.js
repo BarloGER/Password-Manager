@@ -11,17 +11,17 @@ export const useAuth = () => {
     const validateToken = async () => {
       try {
         setLoadingAuthRequest(true);
-        const { data, error } = await api.getUser(token);
-        if (error) throw error;
+        const data = await api.getUser(token);
         setUser(data);
         setIsAuthenticated(true);
       } catch (error) {
-        if (error.status === 401 || error.status === 403) {
+        console.log("Auth-Fehler:", error);
+        const errorStatus =
+          error.status || (error.response && error.response.status);
+        if (errorStatus === 401 || errorStatus === 403) {
           localStorage.removeItem("token");
-          console.log("auth error");
           setToken(null);
         }
-        console.log(error);
       } finally {
         setLoadingAuthRequest(false);
       }

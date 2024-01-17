@@ -1,50 +1,109 @@
 import { apiFetch } from "../../../lib/fetch";
 
-// Funktionen für Benutzer-Interaktionen
 export const getUser = async (token) => {
-  return apiFetch(`/auth/me`, { method: "GET" }, token);
+  try {
+    const response = await apiFetch(`/auth/me`, { method: "GET" }, token);
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const loginUser = async (credentials) => {
-  return apiFetch(`/auth/signin`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
-};
-
-export const registerUser = async (credentials) => {
-  return apiFetch(`/auth/signup`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  });
-};
-
-export const editUser = async (updatedData, token) => {
-  return apiFetch(
-    `/auth/me`,
-    {
-      method: "PUT",
+  try {
+    const response = await apiFetch(`/auth/signin`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(updatedData),
-    },
-    token
-  );
+      body: JSON.stringify(credentials),
+    });
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const registerUser = async (credentials) => {
+  try {
+    const response = await apiFetch(`/auth/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(credentials),
+    });
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const editUser = async (updatedData, token) => {
+  try {
+    const response = await apiFetch(
+      `/auth/me`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      },
+      token
+    );
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const deleteUser = async (token) => {
-  return apiFetch(
-    `/auth/me`,
-    {
-      method: "DELETE",
-    },
-    token
-  );
+  try {
+    const response = await apiFetch(
+      `/auth/me`,
+      {
+        method: "DELETE",
+      },
+      token
+    );
+
+    if (response.error) {
+      throw new Error(
+        response.error.message || "Es ist ein unbekannter Fehler aufgetreten."
+      );
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
