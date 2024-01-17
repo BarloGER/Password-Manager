@@ -25,7 +25,7 @@ import verifyToken from "../middlewares/verifyToken.js";
 const authRouter = Router();
 
 authRouter.get("/me", verifyToken, getUser);
-authRouter.put("/me", verifyToken, editUser);
+authRouter.put("/me", verifyToken, validateJoi(userSchema), editUser);
 authRouter.delete("/me", verifyToken, deleteUser);
 
 authRouter.post("/signup", validateJoi(userSchema), signUp);

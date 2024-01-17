@@ -13,9 +13,13 @@ export const userSchema = Joi.object({
       "string.email": "Die E-Mail muss mit .com, .de oder .net enden",
       "string.empty": "Die E-Mail muss angegeben werden",
     }),
-  password: Joi.string().min(8).max(20).required().messages({
-    "string.min": "Das Passwort muss mindestens {#limit} Zeichen lang sein",
-    "string.max": "Das Passwort darf höchstens {#limit} Zeichen lang sein",
-    "string.empty": "Das Passwort muss angegeben werden",
-  }),
+  password: Joi.string()
+    .min(8)
+    .max(20)
+    .when("$isSignUp", { is: true, then: Joi.required() })
+    .messages({
+      "string.min": "Das Passwort muss mindestens {#limit} Zeichen lang sein",
+      "string.max": "Das Passwort darf höchstens {#limit} Zeichen lang sein",
+      "string.empty": "Das Passwort muss angegeben werden",
+    }),
 });

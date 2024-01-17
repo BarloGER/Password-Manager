@@ -12,7 +12,11 @@ const validateJoi = (schema) => (req, res, next) => {
     );
   }
 
-  const { error } = schema.validate(req.body);
+  const context = {
+    $isSignUp: req.path === "/signup",
+  };
+
+  const { error } = schema.validate(req.body, { context });
   return error
     ? next(
         new ErrorResponse({
