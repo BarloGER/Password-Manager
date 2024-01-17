@@ -5,17 +5,22 @@ export const SecurityCheckInfoForm = ({
   securityData,
   calculatedSecurityStatus,
 }) => {
-  console.log(securityData);
   return (
     <section className="security-check-info-container">
       {securityData ? (
         <div className="security-info">
           <h2>Sicherheitsinfos</h2>
-          <p>Anzahl Accounts: {securityData.accountsTotal}</p>
-          <p>Anzahl sicherer Passwörter: {securityData.securePasswords}</p>
-          <p>Anzahl unsicherer Passwörter: {securityData.insecurePasswords}</p>
-          <p>Anzahl doppelter Passwörter: {securityData.duplicatePasswords}</p>
-          <p>Sicherheitsstatus: {calculatedSecurityStatus}%</p>
+          <div className="security-info-wrapper">
+            <p>Anzahl Accounts: {securityData.accountsTotal}</p>
+            <p>Anzahl sicherer Passwörter: {securityData.securePasswords}</p>
+            <p>
+              Anzahl unsicherer Passwörter: {securityData.insecurePasswords}
+            </p>
+            <p>
+              Anzahl doppelter Passwörter: {securityData.duplicatePasswords}
+            </p>
+            <p>Sicherheitsstatus: {calculatedSecurityStatus}%</p>
+          </div>
           <SecurityCheckStatusCircle
             securityStatus={calculatedSecurityStatus}
           />
@@ -23,11 +28,14 @@ export const SecurityCheckInfoForm = ({
       ) : (
         <div className="security-info">
           <h2>Sicherheitsinfos</h2>
-          <p>Anzahl Accounts: Noch keine Accounts angelegt</p>
-          <p>Anzahl sicherer Passwörter: Noch keine Accounts angelegt</p>
-          <p>Anzahl unsicherer Passwörter: Noch keine Accounts angelegt</p>
-          <p>Anzahl doppelter Passwörter: Noch keine Accounts angelegt</p>
-          <p>Sicherheitsstatus: Noch keine Accounts angelegt</p>
+          <div className="security-info-wrapper">
+            <p>Anzahl Accounts: 0</p>
+            <p>Anzahl sicherer 0</p>
+            <p>Anzahl unsicherer 0</p>
+            <p>Anzahl doppelter 0</p>
+            <p>Sicherheitsstatus: 0</p>
+            <p>Noch keine Accounts angelegt</p>
+          </div>
           <SecurityCheckStatusCircle securityStatus={0} />
         </div>
       )}

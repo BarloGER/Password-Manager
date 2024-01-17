@@ -10,7 +10,7 @@ export const ProtectedRoutes = ({ isAuthenticated, loadingAuthRequest }) => {
     }
   }, [isAuthenticated, navigate]);
 
-  return isAuthenticated ? <Outlet /> : console.log("not authenticated");
+  return isAuthenticated ? <Outlet /> : <h1>Loading...</h1>;
 };
 
 export default ProtectedRoutes;

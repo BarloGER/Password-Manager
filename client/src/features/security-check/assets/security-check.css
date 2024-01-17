@@ -10,9 +10,17 @@
   font-size: 2rem;
 }
 
+.security-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.5rem;
+  width: fit-content;
+}
+
 .security-check-info-container h2 {
   font-size: 2em;
-  margin-bottom: 0.5em;
+  margin-bottom: 2rem;
 }
 
 .security-check-info-container p {
@@ -36,7 +44,7 @@
 }
 
 .security-status-text {
-  font-size: 3em;
+  font-size: 3rem;
   font-weight: bold;
   transform: rotate(90deg);
 }
@@ -63,6 +71,7 @@
   margin-bottom: 20px;
   padding: 20px;
   font-size: 3rem;
+  width: 100%;
 }
 
 .insecure-passwords h2,
@@ -85,9 +94,14 @@
   border-radius: 5px;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1125px) {
   .security-check-info-container {
-    font-size: 4rem;
+    font-size: 3rem;
+  }
+
+  .security-info {
+    justify-content: space-between;
+    margin: 3rem;
   }
 
   .security-check-password-container {
@@ -107,8 +121,16 @@
   }
 
   .security-status-circle {
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-    margin: 70px 0;
+    transform: rotate(-90deg) scale(2);
+    margin: 100px 0;
+  }
+
+  .security-info-wrapper {
+    font-size: 3rem;
+  }
+
+  .security-check-info-container h2 {
+    font-size: 4rem;
+    margin-bottom: 2rem;
   }
 }

@@ -27,39 +27,43 @@ export const PasswordGeneratorForm = ({
             onChange={(e) => setPasswordLength(Number(e.target.value))}
           />
         </div>
-        <div className="checkbox-group">
-          <label>
-            <input
-              type="checkbox"
-              checked={includeNumbers}
-              onChange={(e) => setIncludeNumbers(e.target.checked)}
-            />{" "}
-            Zahlen
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={includeLowercase}
-              onChange={(e) => setIncludeLowercase(e.target.checked)}
-            />{" "}
-            Kleinbuchstaben
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={includeUppercase}
-              onChange={(e) => setIncludeUppercase(e.target.checked)}
-            />{" "}
-            Großbuchstaben
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={includeSymbols}
-              onChange={(e) => setIncludeSymbols(e.target.checked)}
-            />{" "}
-            Symbole
-          </label>
+        <div className="checkbox-wrapper">
+          <div className="checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                checked={includeNumbers}
+                onChange={(e) => setIncludeNumbers(e.target.checked)}
+              />{" "}
+              Zahlen
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={includeLowercase}
+                onChange={(e) => setIncludeLowercase(e.target.checked)}
+              />{" "}
+              Kleinbuchstaben
+            </label>
+          </div>
+          <div className="checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                checked={includeUppercase}
+                onChange={(e) => setIncludeUppercase(e.target.checked)}
+              />{" "}
+              Großbuchstaben
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={includeSymbols}
+                onChange={(e) => setIncludeSymbols(e.target.checked)}
+              />{" "}
+              Symbole
+            </label>
+          </div>
         </div>
         <button className="generate-button" onClick={handleGenerate}>
           Generieren

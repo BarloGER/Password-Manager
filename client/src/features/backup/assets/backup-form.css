@@ -10,6 +10,7 @@
 
 .backup h2 {
   align-self: center;
+  font-size: 2rem;
 }
 
 .backup-textarea {
@@ -44,7 +45,7 @@
   background-color: var(--button-color-hover);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1125px) {
   .backup {
     flex-direction: column;
     align-items: center;

@@ -1,14 +1,8 @@
-import "../assets/security-check.css";
-
 export const SecurityCheckPasswordsForm = ({ securityData }) => {
   if (!securityData) {
-    return (
-      <section>
-        <p>Keine Daten vorhanden.</p>
-      </section>
-    );
+    console.log("wait");
+    return <p>Laden...</p>;
   }
-
   return (
     <section className="security-check-password-container">
       <div className="insecure-passwords">
