@@ -217,7 +217,15 @@ export const AccountForm = ({
             </form>
           ))
         ) : (
-          <p className="no-accounts-text">Noch keine Accounts hinzugefügt.</p>
+          <>
+            {displayedAccounts === null ? (
+              <LoadingSpinner />
+            ) : Object.keys(displayedAccounts).length === 0 ? (
+              <p className="no-accounts-text">
+                Noch keine Accounts hinzugefügt.
+              </p>
+            ) : null}
+          </>
         )}
       </div>
     </section>

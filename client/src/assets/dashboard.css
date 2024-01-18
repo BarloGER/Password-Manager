@@ -24,8 +24,8 @@ section {
 .password-generator,
 .backup {
   background-color: var(--component-background-color);
-  height: auto;
-  border-radius: 10px;
+  height: 100%;
+  border-radius: 0;
 }
 
 .security-check-info-container {

@@ -1,4 +1,5 @@
 import { SecurityCheckStatusCircle } from "./SecurityCheckStatusCircle";
+import { LoadingSpinner } from "../../../components/ui/LoadingSpinner";
 import "../assets/security-check.css";
 
 export const SecurityCheckInfoForm = ({
@@ -26,18 +27,7 @@ export const SecurityCheckInfoForm = ({
           />
         </div>
       ) : (
-        <div className="security-info">
-          <h2>Sicherheitsinfos</h2>
-          <div className="security-info-wrapper">
-            <p>Anzahl Accounts: 0</p>
-            <p>Anzahl sicherer 0</p>
-            <p>Anzahl unsicherer 0</p>
-            <p>Anzahl doppelter 0</p>
-            <p>Sicherheitsstatus: 0</p>
-            <p>Noch keine Accounts angelegt</p>
-          </div>
-          <SecurityCheckStatusCircle securityStatus={0} />
-        </div>
+        <LoadingSpinner />
       )}
     </section>
   );
