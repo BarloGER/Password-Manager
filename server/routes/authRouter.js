@@ -19,6 +19,7 @@ import {
 } from "../controllers/backupAuth.js";
 import { analyzePasswords } from "../controllers/securityAuth.js";
 import { userSchema } from "../joi/userSchema.js";
+import { addAccountSchema, editAccountSchema } from "../joi/accountSchema.js";
 import validateJoi from "../middlewares/validateJoi.js";
 import verifyToken from "../middlewares/verifyToken.js";
 
@@ -32,8 +33,18 @@ authRouter.post("/signup", validateJoi(userSchema), signUp);
 authRouter.post("/signin", signIn);
 
 authRouter.get("/me/accounts", verifyToken, getAccounts);
-authRouter.post("/me/accounts", verifyToken, addAccount);
-authRouter.put("/me/accounts/:accountId", verifyToken, editAccount);
+authRouter.post(
+  "/me/accounts",
+  verifyToken,
+  validateJoi(addAccountSchema),
+  addAccount
+);
+authRouter.put(
+  "/me/accounts/:accountId",
+  verifyToken,
+  validateJoi(editAccountSchema),
+  editAccount
+);
 authRouter.delete("/me/accounts/:accountId", verifyToken, deleteAccount);
 
 authRouter.get("/me/backup", verifyToken, downloadBackup);

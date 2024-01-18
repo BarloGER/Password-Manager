@@ -23,10 +23,9 @@ const accountSchema = Joi.object({
   username: Joi.string().allow("").messages({
     "string.empty": "Benutzername darf leer sein.",
   }),
-  email: Joi.string().email().required().messages({
+  email: Joi.string().email().messages({
     "string.email": "Ungültiges E-Mail-Format.",
     "string.empty": "E-Mail darf nicht leer sein.",
-    "any.required": "E-Mail ist erforderlich.",
   }),
   password: passwordSchema,
   created_at: Joi.date().iso().required().messages({
