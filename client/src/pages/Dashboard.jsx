@@ -14,9 +14,9 @@ const Dashboard = () => {
   const token = localStorage.getItem("token");
 
   const fetchSecurityData = async () => {
-    const res = await api.getSecurityData(token);
-    if (res && res.data) {
-      const data = res.data;
+    const response = await api.getSecurityData(token);
+    if (response) {
+      const data = response;
       setSecurityData(data);
     }
   };

@@ -65,9 +65,9 @@
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  font-size: 5rem;
+  font-size: 3rem;
   width: 100%;
   min-height: 150px;
   max-width: 400px;
@@ -160,7 +160,7 @@
 
 .account-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 10px;
   width: 100%;
 }
@@ -201,38 +201,32 @@
     width: 100%;
     font-size: 1rem;
     min-height: auto;
-    font-size: 5rem;
     max-width: 350px;
-    min-height: 250px;
+    min-height: 350px;
     margin-bottom: 0;
+    font-size: 3rem;
   }
 
   .new-account-form {
-    font-size: 1rem;
     order: -1;
-    font-size: 3rem;
-    min-height: 250px;
+    min-height: 350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    grid-column-start: 1;
   }
 
   .new-account-form-button {
     margin-top: auto;
   }
 
-  .account-card button {
-    margin-bottom: 0;
-  }
-
   .account-actions {
     position: static;
     justify-content: center;
     margin-top: auto;
+    margin-bottom: 1rem;
   }
-
-  .account-card .password {
-    font-size: 2rem;
-    margin-left: 0.5rem;
+  .new-account-form button {
+    margin-bottom: 0.5rem;
   }
 }
