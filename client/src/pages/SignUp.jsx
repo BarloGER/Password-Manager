@@ -17,25 +17,25 @@ const SignUp = ({
       password: "",
       confirm_password: "",
     });
-  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     setFormState((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
-    setError("");
     try {
       e.preventDefault();
       setLoadingAuthRequest(true);
 
       if (password !== confirm_password) {
-        setError("Passwörter stimmen nicht überein.");
+        setErrorMessage("Passwörter stimmen nicht überein.");
         setLoadingAuthRequest(false);
         return;
       }
 
-      const { data } = await api.registerUser({
+      const data = await api.registerUser({
         username,
         email,
         password,
@@ -46,7 +46,7 @@ const SignUp = ({
       setLoadingAuthRequest(false);
       localStorage.setItem("token", data.token);
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error.message);
       setLoadingAuthRequest(false);
     }
   };
@@ -58,7 +58,10 @@ const SignUp = ({
     <SignUpForm
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      error={error}
+      successMessage={successMessage}
+      setSuccessMessage={setSuccessMessage}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
     />
   );
 };

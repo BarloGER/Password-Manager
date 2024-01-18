@@ -1,3 +1,4 @@
+import { Message } from "../../../components/ui/Message";
 import "../assets/backup-form.css";
 
 export const BackupForm = ({
@@ -5,6 +6,10 @@ export const BackupForm = ({
   onDownload,
   onUpload,
   onBackupDataChange,
+  successMessage,
+  setSuccessMessage,
+  errorMessage,
+  setErrorMessage,
 }) => {
   return (
     <section className="backup">
@@ -16,9 +21,26 @@ export const BackupForm = ({
         placeholder="Backup-Daten werden hier angezeigt..."
         rows="10"
       />
+      <Message
+        successMessage={successMessage}
+        setSuccessMessage={setSuccessMessage}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
+      />
 
       <div className="backup-actions">
-        <button onClick={() => navigator.clipboard.writeText(backupData)}>
+        <button
+          onClick={() => {
+            navigator.clipboard
+              .writeText(backupData)
+              .then(() => {
+                setSuccessMessage("Kopiert");
+              })
+              .catch((err) => {
+                setErrorMessage(err);
+              });
+          }}
+        >
           Kopieren
         </button>
         <button onClick={() => onDownload(false)}>Backup herunterladen</button>

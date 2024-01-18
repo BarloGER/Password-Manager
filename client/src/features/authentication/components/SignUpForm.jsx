@@ -1,19 +1,23 @@
 import { Link } from "react-router-dom";
-import "../assets/auth-forms.css"; // Stelle sicher, dass der Pfad korrekt ist
+import { Message } from "../../../components/ui/Message";
+import "../assets/auth-forms.css";
 
 export const SignUpForm = ({
   handleChange,
   handleSubmit,
-  error,
   username,
   email,
   password,
   confirm_password,
+  successMessage,
+  setSuccessMessage,
+  errorMessage,
+  setErrorMessage,
 }) => {
   return (
     <section className="auth-container">
       <h1 className="auth-title">Registrieren</h1>
-      {error && <p className="auth-error">{error}</p>}{" "}
+
       <form onSubmit={handleSubmit}>
         <div>
           <input
@@ -55,6 +59,12 @@ export const SignUpForm = ({
             onChange={handleChange}
           />
         </div>
+        <Message
+          successMessage={successMessage}
+          setSuccessMessage={setSuccessMessage}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+        />
         <button className="auth-button auth-submit-button" type="submit">
           Registrieren
         </button>

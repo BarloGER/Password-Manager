@@ -9,6 +9,8 @@ export const PasswordGenerator = () => {
   const [includeLowercase, setIncludeLowercase] = useState(true);
   const [includeUppercase, setIncludeUppercase] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(true);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleGenerate = () => {
     const newPassword = generatePassword(passwordLength, {
@@ -34,6 +36,10 @@ export const PasswordGenerator = () => {
       setIncludeUppercase={setIncludeUppercase}
       includeSymbols={includeSymbols}
       setIncludeSymbols={setIncludeSymbols}
+      successMessage={successMessage}
+      setSuccessMessage={setSuccessMessage}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
     />
   );
 };

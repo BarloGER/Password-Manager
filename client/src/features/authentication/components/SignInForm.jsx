@@ -1,7 +1,17 @@
 import { Link } from "react-router-dom";
+import { Message } from "../../../components/ui/Message";
 import "../assets/auth-forms.css";
 
-export const SignInForm = ({ email, password, handleChange, handleSubmit }) => {
+export const SignInForm = ({
+  email,
+  password,
+  handleChange,
+  handleSubmit,
+  successMessage,
+  setSuccessMessage,
+  errorMessage,
+  setErrorMessage,
+}) => {
   return (
     <section className="auth-container">
       <h3 className="auth-title">Anmelden</h3>
@@ -26,6 +36,13 @@ export const SignInForm = ({ email, password, handleChange, handleSubmit }) => {
             onChange={handleChange}
           />
         </div>
+
+        <Message
+          successMessage={successMessage}
+          setSuccessMessage={setSuccessMessage}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+        />
 
         <button className="auth-button auth-submit-button" type="submit">
           Anmelden

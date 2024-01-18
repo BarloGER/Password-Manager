@@ -1,0 +1,19 @@
+.success-message {
+  color: var(--success-color);
+  transition: opacity 1s ease-out;
+}
+
+.error-message {
+  color: var(--error-color);
+  transition: opacity 1s ease-out;
+}
+
+.success-message,
+.error-message {
+  transition: opacity 1s ease-out;
+  opacity: 1;
+}
+
+.fade {
+  opacity: 0.1;
+}

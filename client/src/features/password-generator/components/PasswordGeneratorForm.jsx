@@ -1,3 +1,4 @@
+import { Message } from "../../../components/ui/Message";
 import "../assets/password-generator-form.css";
 
 export const PasswordGeneratorForm = ({
@@ -13,6 +14,10 @@ export const PasswordGeneratorForm = ({
   setIncludeUppercase,
   includeSymbols,
   setIncludeSymbols,
+  successMessage,
+  setSuccessMessage,
+  errorMessage,
+  setErrorMessage,
 }) => {
   return (
     <section className="password-generator">
@@ -73,11 +78,26 @@ export const PasswordGeneratorForm = ({
         <input type="text" value={generatedPassword} readOnly />
         <button
           className="copy-button"
-          onClick={() => navigator.clipboard.writeText(generatedPassword)}
+          onClick={() => {
+            navigator.clipboard
+              .writeText(generatedPassword)
+              .then(() => {
+                setSuccessMessage("Kopiert");
+              })
+              .catch((err) => {
+                setErrorMessage(err);
+              });
+          }}
         >
           Kopieren
         </button>
       </div>
+      <Message
+        successMessage={successMessage}
+        setSuccessMessage={setSuccessMessage}
+        errorMessage={errorMessage}
+        setErrorMessage={setErrorMessage}
+      />
     </section>
   );
 };

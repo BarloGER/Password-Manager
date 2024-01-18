@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Message } from "../../../components/ui/Message";
 import { generatePassword } from "../../password-generator";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import { FaEye, FaEyeSlash, FaCopy } from "react-icons/fa";
@@ -20,6 +21,18 @@ export const AccountForm = ({
   setEditingAccount,
   showPasswordId,
   setShowPasswordId,
+  newAccountSuccessMessage,
+  setNewAccountSuccessMessage,
+  newAccountErrorMessage,
+  setNewAccountErrorMessage,
+  editAccountSuccessMessage,
+  setEditAccountSuccessMessage,
+  editAccountErrorMessage,
+  setEditAccountErrorMessage,
+  messageAccountId,
+  setMessageAccountId,
+  isEditing,
+  setIsEditing,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -30,6 +43,16 @@ export const AccountForm = ({
   const handlePasswordGeneration = () => {
     const newPassword = generatePassword(12);
     handleInputChange({ target: { name: "password", value: newPassword } });
+  };
+
+  const startEditing = (accountId) => {
+    setIsEditing(accountId);
+    setEditingAccount(accountId);
+  };
+
+  const stopEditing = () => {
+    setIsEditing(null);
+    setEditingAccount(null);
   };
 
   return (
@@ -52,7 +75,6 @@ export const AccountForm = ({
             placeholder="Account Name"
             value={newAccount.name}
             onChange={handleInputChange}
-            required
           />
           <input
             type="text"
@@ -75,7 +97,6 @@ export const AccountForm = ({
               placeholder="Passwort"
               value={newAccount.password}
               onChange={handleInputChange}
-              required
             />
             <CgPassword
               className="input-icon-1 cg-password"
@@ -93,58 +114,71 @@ export const AccountForm = ({
               />
             )}
           </div>
+          <Message
+            successMessage={newAccountSuccessMessage}
+            setSuccessMessage={setNewAccountSuccessMessage}
+            errorMessage={newAccountErrorMessage}
+            setErrorMessage={setNewAccountErrorMessage}
+          />
           <button type="submit" className="new-account-form-button">
             Account hinzufügen
           </button>
         </form>
         {displayedAccounts && displayedAccounts.length > 0 ? (
           displayedAccounts.map((account, index) => (
-            <div className="account-card" key={index}>
-              {editingAccount === account._id ? (
-                <form onSubmit={(e) => handleEditSubmit(e, account._id)}>
-                  <input
-                    type="text"
-                    name="name"
-                    value={account.name}
-                    onChange={(e) => handleEditInputChange(index, e)}
-                  />
-                  <input
-                    type="text"
-                    name="username"
-                    value={account.username}
-                    onChange={(e) => handleEditInputChange(index, e)}
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    value={account.email}
-                    onChange={(e) => handleEditInputChange(index, e)}
-                  />
-                  <input
-                    type={showPasswordId === account._id ? "text" : "password"}
-                    name="password"
-                    value={account.password}
-                    onChange={(e) => handleEditInputChange(index, e)}
-                  />
-                  <button type="button" onClick={cancelEdit}>
+            <form
+              className="account-card"
+              key={index}
+              onSubmit={(e) => {
+                handleEditSubmit(e, account._id);
+                setMessageAccountId(account._id);
+              }}
+            >
+              <input
+                type="text"
+                name="name"
+                placeholder="Account Name"
+                value={account.name}
+                onChange={(e) => handleEditInputChange(index, e)}
+                readOnly={editingAccount !== account._id}
+              />
+              <input
+                type="text"
+                name="username"
+                placeholder="Benutzername"
+                value={account.username}
+                onChange={(e) => handleEditInputChange(index, e)}
+                readOnly={editingAccount !== account._id}
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={account.email}
+                onChange={(e) => handleEditInputChange(index, e)}
+              />
+              <input
+                type={showPasswordId === account._id ? "text" : "password"}
+                name="password"
+                placeholder="Passwort"
+                value={account.password}
+                onChange={(e) => handleEditInputChange(index, e)}
+              />
+              {isEditing === account._id && !editAccountSuccessMessage && (
+                <>
+                  <button type="button" onClick={stopEditing}>
                     Abbrechen
                   </button>
                   <button type="submit">Aktualisieren</button>
-                </form>
-              ) : (
-                <div className="account-info">
-                  <p>{`Name: ${account.name}`}</p>
-                  <p>{`Benutzername: ${account.username}`}</p>
-                  <p>{`Email: ${account.email}`}</p>
-                  <p>
-                    Password:{" "}
-                    <span className="password">
-                      {showPasswordId === account._id
-                        ? account.password
-                        : "••••••••"}
-                    </span>
-                  </p>
-                </div>
+                </>
+              )}
+              {messageAccountId === account._id && (
+                <Message
+                  successMessage={editAccountSuccessMessage}
+                  setSuccessMessage={setEditAccountSuccessMessage}
+                  errorMessage={editAccountErrorMessage}
+                  setErrorMessage={setEditAccountErrorMessage}
+                />
               )}
 
               <div className="account-actions">
@@ -161,24 +195,27 @@ export const AccountForm = ({
                 )}
                 <FaCopy
                   className="icon"
-                  onClick={() =>
-                    navigator.clipboard.writeText(account.password)
-                  }
+                  onClick={() => {
+                    navigator.clipboard
+                      .writeText(account.password)
+                      .then(() => {
+                        setEditAccountSuccessMessage("Kopiert");
+                      })
+                      .catch((err) => {
+                        setEditAccountErrorMessage(err);
+                      });
+                  }}
                 />
                 <MdModeEdit
                   className="icon"
-                  onClick={() =>
-                    setEditingAccount(
-                      editingAccount === account._id ? null : account._id
-                    )
-                  }
+                  onClick={() => startEditing(account._id)}
                 />
                 <MdDelete
                   className="icon"
                   onClick={() => deleteAcc(account._id)}
                 />
               </div>
-            </div>
+            </form>
           ))
         ) : (
           <p className="no-accounts-text">Noch keine Accounts hinzugefügt.</p>

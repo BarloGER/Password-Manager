@@ -4,6 +4,8 @@ import api from "../../../lib/apiFacade";
 
 export const Backup = () => {
   const [backupData, setBackupData] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const token = localStorage.getItem("token");
 
   const handleDownload = async (decrypted = false) => {
@@ -12,19 +14,25 @@ export const Backup = () => {
         ? await api.downloadBackupDecrypted(token)
         : await api.downloadBackup(token);
       setBackupData(JSON.stringify(data, null, 2));
+
+      if (data.message) {
+        setMessage(data.message);
+      }
     } catch (error) {
-      console.error("Fehler beim Herunterladen des Backups:", error);
-      // Hier könntest du eine Benachrichtigung anzeigen
+      setMessage(error.message);
     }
   };
 
   const handleUpload = async () => {
     try {
-      await api.uploadBackup(backupData, token);
-      // Hier könntest du eine Benachrichtigung anzeigen, dass das Backup erfolgreich hochgeladen wurde
+      const data = await api.uploadBackup(backupData, token);
+
+      if (data.message) {
+        setSuccessMessage(data.message);
+        setBackupData("");
+      }
     } catch (error) {
-      console.error("Fehler beim Hochladen des Backups:", error);
-      // Hier könntest du eine Benachrichtigung anzeigen
+      setErrorMessage(error.message);
     }
   };
 
@@ -34,6 +42,10 @@ export const Backup = () => {
       onDownload={handleDownload}
       onUpload={handleUpload}
       onBackupDataChange={setBackupData}
+      successMessage={successMessage}
+      setSuccessMessage={setSuccessMessage}
+      errorMessage={errorMessage}
+      setErrorMessage={setErrorMessage}
     />
   );
 };

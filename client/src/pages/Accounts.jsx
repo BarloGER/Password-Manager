@@ -17,12 +17,19 @@ const Accounts = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [editingAccount, setEditingAccount] = useState(null);
   const [showPasswordId, setShowPasswordId] = useState(null);
+  const [newAccountSuccessMessage, setNewAccountSuccessMessage] = useState("");
+  const [newAccountErrorMessage, setNewAccountErrorMessage] = useState("");
+  const [editAccountSuccessMessage, setEditAccountSuccessMessage] =
+    useState("");
+  const [editAccountErrorMessage, setEditAccountErrorMessage] = useState("");
+  const [messageAccountId, setMessageAccountId] = useState(null);
+  const [isEditing, setIsEditing] = useState(null);
   const token = localStorage.getItem("token");
 
   const fetchAccounts = async () => {
-    const res = await api.getAccounts(token);
-    if (res && res.data && res.data.accounts) {
-      const sortedAccounts = res.data.accounts.sort((a, b) =>
+    const response = await api.getAccounts(token);
+    if (response && response.accounts) {
+      const sortedAccounts = response.accounts.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
       setAccounts(sortedAccounts);
@@ -48,28 +55,44 @@ const Accounts = () => {
   };
 
   const addAccount = async () => {
-    const account = { ...newAccount, password: newAccount.password };
-    await api.addAccountToUser(account, token);
-    fetchAccounts();
-    setNewAccount({
-      _id: crypto.randomUUID(),
-      name: "",
-      username: "",
-      email: "",
-      password: "",
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    });
+    try {
+      const account = { ...newAccount, password: newAccount.password };
+      const data = await api.addAccountToUser(account, token);
+
+      if (data.message) {
+        setNewAccountSuccessMessage(data.message);
+        fetchAccounts();
+        setNewAccount({
+          _id: crypto.randomUUID(),
+          name: "",
+          username: "",
+          email: "",
+          password: "",
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        });
+      }
+    } catch (error) {
+      setNewAccountErrorMessage(error.message);
+    }
   };
 
   const deleteAcc = async (accountId) => {
-    accounts.find((acc) => acc._id === accountId);
-    const confirmation = window.confirm(
-      "Willst du deinen Account wirklich löschen?"
-    );
-    if (confirmation) {
-      await api.deleteAccount(accountId, token);
-      fetchAccounts();
+    try {
+      accounts.find((acc) => acc._id === accountId);
+      const confirmation = window.confirm(
+        "Willst du deinen Account wirklich löschen?"
+      );
+      if (confirmation) {
+        const data = await api.deleteAccount(accountId, token);
+
+        if (data.message) {
+          setEditAccountSuccessMessage(data.message);
+          fetchAccounts();
+        }
+      }
+    } catch (error) {
+      setEditAccountErrorMessage(error.message);
     }
   };
 
@@ -85,14 +108,23 @@ const Accounts = () => {
   };
 
   const handleEditSubmit = async (e, accountId) => {
-    e.preventDefault();
-    const accountToEdit = {
-      ...accounts.find((acc) => acc._id === accountId),
-      updated_at: new Date().toISOString(),
-    };
-    await api.editAccount(accountId, accountToEdit, token);
-    setEditingAccount(null);
-    fetchAccounts();
+    try {
+      e.preventDefault();
+      const accountToEdit = {
+        ...accounts.find((acc) => acc._id === accountId),
+        updated_at: new Date().toISOString(),
+      };
+      const data = await api.editAccount(accountId, accountToEdit, token);
+
+      if (data.message) {
+        setEditAccountSuccessMessage(data.message);
+        setIsEditing(null);
+        setEditingAccount(null);
+        fetchAccounts();
+      }
+    } catch (error) {
+      setEditAccountErrorMessage(error.message);
+    }
   };
 
   const handleFormSubmit = async (e) => {
@@ -116,6 +148,18 @@ const Accounts = () => {
       setEditingAccount={setEditingAccount}
       showPasswordId={showPasswordId}
       setShowPasswordId={setShowPasswordId}
+      newAccountSuccessMessage={newAccountSuccessMessage}
+      setNewAccountSuccessMessage={setNewAccountSuccessMessage}
+      newAccountErrorMessage={newAccountErrorMessage}
+      setNewAccountErrorMessage={setNewAccountErrorMessage}
+      editAccountSuccessMessage={editAccountSuccessMessage}
+      setEditAccountSuccessMessage={setEditAccountSuccessMessage}
+      editAccountErrorMessage={editAccountErrorMessage}
+      setEditAccountErrorMessage={setEditAccountErrorMessage}
+      messageAccountId={messageAccountId}
+      setMessageAccountId={setMessageAccountId}
+      isEditing={isEditing}
+      setIsEditing={setIsEditing}
     />
   );
 };
