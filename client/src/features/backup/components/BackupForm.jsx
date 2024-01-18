@@ -1,4 +1,5 @@
 import { Message } from "../../../components/ui/Message";
+import { LoadingSpinner } from "../../../components/ui/LoadingSpinner";
 import "../assets/backup-form.css";
 
 export const BackupForm = ({
@@ -10,6 +11,9 @@ export const BackupForm = ({
   setSuccessMessage,
   errorMessage,
   setErrorMessage,
+  isDownloading,
+  isDownloadingDecrypted,
+  isUploading,
 }) => {
   return (
     <section className="backup">
@@ -43,11 +47,16 @@ export const BackupForm = ({
         >
           Kopieren
         </button>
-        <button onClick={() => onDownload(false)}>Backup herunterladen</button>
-        <button onClick={() => onDownload(true)}>
-          Backup entschlüsselt herunterladen
+        <button onClick={() => onDownload(false)}>
+          Backup herunterladen {isDownloading && <LoadingSpinner />}
         </button>
-        <button onClick={() => onUpload(false)}>Backup hochladen</button>
+        <button onClick={() => onDownload(true)}>
+          Backup entschlüsselt herunterladen{" "}
+          {isDownloadingDecrypted && <LoadingSpinner />}
+        </button>
+        <button onClick={() => onUpload(false)}>
+          Backup hochladen {isUploading && <LoadingSpinner />}
+        </button>
       </div>
     </section>
   );

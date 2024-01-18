@@ -90,6 +90,15 @@
   color: var(--text-color);
 }
 
+.new-account-form-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: auto;
+  margin-bottom: 0.5rem;
+}
+
 .account-card input {
   background-color: var(--input-color);
   color: var(--text-color);
@@ -101,6 +110,14 @@
 
 .account-card button {
   background-color: var(--button-color);
+}
+
+.account-card .abort {
+  background-color: var(--error-color);
+}
+
+.account-card .abort:hover {
+  background-color: var(--error-color-hover);
 }
 
 .account-card button:hover {

@@ -46,6 +46,22 @@
   font-size: 1rem;
 }
 
+.profile-box .submit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: auto;
+}
+
+.profile-box .abort-button {
+  background-color: var(--error-color);
+}
+
+.profile-box .abort-button:hover {
+  background-color: var(--error-color-hover);
+}
+
 .profile-box button:hover {
   background-color: var(--button-color-hover);
 }

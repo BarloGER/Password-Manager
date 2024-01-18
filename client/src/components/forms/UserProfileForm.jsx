@@ -1,4 +1,9 @@
+import { useState } from "react";
 import { Message } from "../../components/ui/Message";
+import { LoadingSpinner } from "../../components/ui/LoadingSpinner";
+import { generatePassword } from "../../features/password-generator";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { CgPassword } from "react-icons/cg";
 import "../../assets/profile.css";
 
 const UserProfileForm = ({
@@ -10,6 +15,7 @@ const UserProfileForm = ({
   isEditing,
   setIsEditing,
   editedUser,
+  setEditedUser,
   isEditingPassword,
   setIsEditingPassword,
   passwordsMatch,
@@ -19,7 +25,19 @@ const UserProfileForm = ({
   setSuccessMessage,
   errorMessage,
   setErrorMessage,
+  isLoading,
 }) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const handlePasswordGeneration = () => {
+    const newPassword = generatePassword(12);
+    setEditedUser({ ...editedUser, password: newPassword });
+  };
+
   return user ? (
     <div className="profile-container">
       {" "}
@@ -64,18 +82,36 @@ const UserProfileForm = ({
                 <div className="profile-input-wrapper">
                   <label>
                     Neues Passwort:
-                    <input
-                      type="password"
-                      name="password"
-                      onChange={handlePasswordChange}
-                    />
+                    <div className="input-icon-container">
+                      <input
+                        type={isPasswordVisible ? "text" : "password"}
+                        name="password"
+                        value={editedUser.password}
+                        onChange={handleInputChange}
+                      />
+                      <CgPassword
+                        className="input-icon-1 cg-password"
+                        onClick={handlePasswordGeneration}
+                      />
+                      {isPasswordVisible ? (
+                        <FaEyeSlash
+                          className="input-icon-2 fa-eye"
+                          onClick={togglePasswordVisibility}
+                        />
+                      ) : (
+                        <FaEye
+                          className="input-icon-2 fa-eye"
+                          onClick={togglePasswordVisibility}
+                        />
+                      )}
+                    </div>
                   </label>
                 </div>
                 <div className="profile-input-wrapper">
                   <label>
                     Passwort wiederholen:
                     <input
-                      type="password"
+                      type={isPasswordVisible ? "text" : "password"}
                       name="repeatPassword"
                       onChange={handlePasswordChange}
                     />
@@ -92,17 +128,23 @@ const UserProfileForm = ({
                 Passwort bearbeiten
               </button>
               <button
+                className="abort-button"
                 type="button"
                 onClick={() => {
                   setIsEditing(false);
                   setIsEditingPassword(false);
+                  setEditedUser({
+                    email: user.email,
+                    username: user.username,
+                    password: "",
+                  });
                 }}
               >
                 Abbrechen
               </button>
             </div>
-            <button type="submit" disabled={!passwordsMatch}>
-              Änderungen speichern
+            <button type="submit" className="submit-button">
+              Änderungen speichern {isLoading && <LoadingSpinner />}
             </button>
           </form>
         ) : (

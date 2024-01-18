@@ -6,10 +6,19 @@ export const Backup = () => {
   const [backupData, setBackupData] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [isDownloadingDecrypted, setIsDownloadingDecrypted] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   const token = localStorage.getItem("token");
 
   const handleDownload = async (decrypted = false) => {
     try {
+      if (decrypted) {
+        setIsDownloadingDecrypted(true);
+      } else {
+        setIsDownloading(true);
+      }
+
       const data = decrypted
         ? await api.downloadBackupDecrypted(token)
         : await api.downloadBackup(token);
@@ -20,11 +29,15 @@ export const Backup = () => {
       }
     } catch (error) {
       setMessage(error.message);
+    } finally {
+      setIsDownloadingDecrypted(false);
+      setIsDownloading(false);
     }
   };
 
   const handleUpload = async () => {
     try {
+      setIsUploading(true);
       const data = await api.uploadBackup(backupData, token);
 
       if (data.message) {
@@ -33,6 +46,8 @@ export const Backup = () => {
       }
     } catch (error) {
       setErrorMessage(error.message);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -46,6 +61,9 @@ export const Backup = () => {
       setSuccessMessage={setSuccessMessage}
       errorMessage={errorMessage}
       setErrorMessage={setErrorMessage}
+      isDownloading={isDownloading}
+      isDownloadingDecrypted={isDownloadingDecrypted}
+      isUploading={isUploading}
     />
   );
 };

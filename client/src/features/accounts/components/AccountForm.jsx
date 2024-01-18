@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Message } from "../../../components/ui/Message";
+import { LoadingSpinner } from "../../../components/ui/LoadingSpinner";
 import { generatePassword } from "../../password-generator";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import { FaEye, FaEyeSlash, FaCopy } from "react-icons/fa";
@@ -15,7 +16,6 @@ export const AccountForm = ({
   handleInputChange,
   deleteAcc,
   handleEditInputChange,
-  cancelEdit,
   handleEditSubmit,
   editingAccount,
   setEditingAccount,
@@ -33,6 +33,10 @@ export const AccountForm = ({
   setMessageAccountId,
   isEditing,
   setIsEditing,
+  isLoading,
+  setisLoading,
+  startEditing,
+  stopEditing,
 }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -43,16 +47,6 @@ export const AccountForm = ({
   const handlePasswordGeneration = () => {
     const newPassword = generatePassword(12);
     handleInputChange({ target: { name: "password", value: newPassword } });
-  };
-
-  const startEditing = (accountId) => {
-    setIsEditing(accountId);
-    setEditingAccount(accountId);
-  };
-
-  const stopEditing = () => {
-    setIsEditing(null);
-    setEditingAccount(null);
   };
 
   return (
@@ -120,8 +114,10 @@ export const AccountForm = ({
             errorMessage={newAccountErrorMessage}
             setErrorMessage={setNewAccountErrorMessage}
           />
+
           <button type="submit" className="new-account-form-button">
             Account hinzufügen
+            {isLoading && <LoadingSpinner />}
           </button>
         </form>
         {displayedAccounts && displayedAccounts.length > 0 ? (
@@ -166,10 +162,13 @@ export const AccountForm = ({
               />
               {isEditing === account._id && !editAccountSuccessMessage && (
                 <>
-                  <button type="button" onClick={stopEditing}>
+                  <button type="button" onClick={stopEditing} className="abort">
                     Abbrechen
                   </button>
-                  <button type="submit">Aktualisieren</button>
+                  <button type="submit" className="new-account-form-button">
+                    Aktualisieren
+                    {isLoading && <LoadingSpinner />}
+                  </button>
                 </>
               )}
               {messageAccountId === account._id && (

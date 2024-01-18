@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { AccountForm } from "../features/accounts";
 import api from "../lib/apiFacade";
 
+// ToDo: Fix handleEditInputChange, it's working but can fail if edit is canceled twice in a row
+
 const Accounts = () => {
   const [accounts, setAccounts] = useState(null);
   const [newAccount, setNewAccount] = useState({
@@ -24,6 +26,8 @@ const Accounts = () => {
   const [editAccountErrorMessage, setEditAccountErrorMessage] = useState("");
   const [messageAccountId, setMessageAccountId] = useState(null);
   const [isEditing, setIsEditing] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [originalAccount, setOriginalAccount] = useState(null);
   const token = localStorage.getItem("token");
 
   const fetchAccounts = async () => {
@@ -56,6 +60,7 @@ const Accounts = () => {
 
   const addAccount = async () => {
     try {
+      setIsLoading(true);
       const account = { ...newAccount, password: newAccount.password };
       const data = await api.addAccountToUser(account, token);
 
@@ -74,6 +79,8 @@ const Accounts = () => {
       }
     } catch (error) {
       setNewAccountErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -102,13 +109,29 @@ const Accounts = () => {
     setAccounts(updatedAccounts);
   };
 
-  const cancelEdit = () => {
+  const startEditing = (accountId) => {
+    const accountToEdit = accounts.find((acc) => acc._id === accountId);
+    setOriginalAccount({ ...accountToEdit });
+    setIsEditing(accountId);
+    setEditingAccount(accountId);
+  };
+
+  const stopEditing = () => {
+    if (originalAccount && editingAccount) {
+      setDisplayedAccounts((prevAccounts) =>
+        prevAccounts.map((acc) =>
+          acc._id === editingAccount ? { ...originalAccount } : acc
+        )
+      );
+    }
+    setIsEditing(null);
     setEditingAccount(null);
-    setShowPasswordId(null);
+    setOriginalAccount(null);
   };
 
   const handleEditSubmit = async (e, accountId) => {
     try {
+      setIsLoading(true);
       e.preventDefault();
       const accountToEdit = {
         ...accounts.find((acc) => acc._id === accountId),
@@ -124,6 +147,8 @@ const Accounts = () => {
       }
     } catch (error) {
       setEditAccountErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -137,7 +162,6 @@ const Accounts = () => {
       handleInputChange={handleInputChange}
       deleteAcc={deleteAcc}
       handleEditInputChange={handleEditInputChange}
-      cancelEdit={cancelEdit}
       handleEditSubmit={handleEditSubmit}
       handleFormSubmit={handleFormSubmit}
       searchTerm={searchTerm}
@@ -160,6 +184,10 @@ const Accounts = () => {
       setMessageAccountId={setMessageAccountId}
       isEditing={isEditing}
       setIsEditing={setIsEditing}
+      isLoading={isLoading}
+      setIsLoading={setIsLoading}
+      startEditing={startEditing}
+      stopEditing={stopEditing}
     />
   );
 };

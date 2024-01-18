@@ -4,6 +4,7 @@ import api from "../lib/apiFacade";
 
 const UserProfile = ({ user, setIsAuthenticated }) => {
   const token = localStorage.getItem("token");
+  const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingPassword, setIsEditingPassword] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(true);
@@ -22,13 +23,13 @@ const UserProfile = ({ user, setIsAuthenticated }) => {
 
   useEffect(() => {
     if (user) {
-      setEditedUser({ email: user.email, username: user.username });
+      setEditedUser({
+        email: user.email,
+        username: user.username,
+        password: "",
+      });
     }
   }, [user]);
-
-  useEffect(() => {
-    setPasswordsMatch(editedUser.password === editedUser.repeatPassword);
-  }, [editedUser.password, editedUser.repeatPassword]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,15 +38,29 @@ const UserProfile = ({ user, setIsAuthenticated }) => {
 
   const handleEditSubmit = async (e) => {
     e.preventDefault();
+    if (editedUser.password !== editedUser.repeatPassword) {
+      setErrorMessage("Die Passwörter stimmen nicht überein.");
+      setPasswordsMatch(false);
+      return;
+    }
+
+    setErrorMessage("");
+    setPasswordsMatch(true);
+    setIsLoading(true);
+
     try {
       const userData = { ...editedUser };
       delete userData.repeatPassword;
 
       const data = await api.editUser(userData, token);
-      setIsEditing(false);
-      setSuccessMessage(data.message);
+      if (data.message) {
+        setSuccessMessage(data.message);
+        setIsEditing(false);
+      }
     } catch (error) {
       setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -85,10 +100,12 @@ const UserProfile = ({ user, setIsAuthenticated }) => {
       setPasswordsMatch={setPasswordsMatch}
       handlePasswordChange={handlePasswordChange}
       editedUser={editedUser}
+      setEditedUser={setEditedUser}
       successMessage={successMessage}
       setSuccessMessage={setSuccessMessage}
       errorMessage={errorMessage}
       setErrorMessage={setErrorMessage}
+      isLoading={isLoading}
     />
   );
 };
