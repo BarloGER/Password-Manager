@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Message } from "../../../components/ui/Message";
+import { LoadingSpinner } from "../../../components/ui/LoadingSpinner";
 import "../assets/auth-forms.css";
 
 export const SignInForm = ({
@@ -11,6 +12,7 @@ export const SignInForm = ({
   setSuccessMessage,
   errorMessage,
   setErrorMessage,
+  loadingAuthRequest,
 }) => {
   return (
     <section className="auth-container">
@@ -45,7 +47,7 @@ export const SignInForm = ({
         />
 
         <button className="auth-button auth-submit-button" type="submit">
-          Anmelden
+          Anmelden {loadingAuthRequest && <LoadingSpinner />}
         </button>
 
         <p className="auth-text">Noch nicht registriert?</p>

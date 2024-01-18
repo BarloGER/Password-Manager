@@ -34,7 +34,6 @@ const SignIn = ({
     }
   };
 
-  if (loadingAuthRequest) return <h1>Loading</h1>;
   if (isAuthenticated) return <Navigate to="/auth/dashboard" />;
 
   return (
@@ -45,6 +44,7 @@ const SignIn = ({
       setSuccessMessage={setSuccessMessage}
       errorMessage={errorMessage}
       setErrorMessage={setErrorMessage}
+      loadingAuthRequest={loadingAuthRequest}
     />
   );
 };

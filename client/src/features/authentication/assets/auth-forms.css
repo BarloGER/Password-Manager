@@ -15,8 +15,11 @@
 
 .auth-container form {
   width: 100%;
+  padding: 20px;
+  border-radius: 8px;
   max-width: 400px;
   margin: 0 auto;
+  background-color: var(--component-background-color);
 }
 
 .auth-input {
@@ -31,6 +34,9 @@
 }
 
 .auth-button {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
   width: 100%;
   padding: 15px;
   margin: 10px 0;
@@ -73,12 +79,6 @@
 }
 
 @media (min-width: 768px) {
-  .auth-container form {
-    padding: 20px;
-    border-radius: 8px;
-    background-color: var(--component-background-color);
-  }
-
   .auth-input,
   .auth-button {
     margin-top: 15px;

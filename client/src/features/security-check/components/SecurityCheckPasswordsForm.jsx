@@ -1,6 +1,5 @@
 export const SecurityCheckPasswordsForm = ({ securityData }) => {
   if (!securityData) {
-    console.log("wait");
     return <p>Laden...</p>;
   }
   return (

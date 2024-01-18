@@ -51,7 +51,6 @@ const SignUp = ({
     }
   };
 
-  if (loadingAuthRequest) return <h1>Loading</h1>;
   if (isAuthenticated) return <Navigate to="/auth/dashboard" />;
 
   return (
@@ -62,6 +61,7 @@ const SignUp = ({
       setSuccessMessage={setSuccessMessage}
       errorMessage={errorMessage}
       setErrorMessage={setErrorMessage}
+      loadingAuthRequest={loadingAuthRequest}
     />
   );
 };
