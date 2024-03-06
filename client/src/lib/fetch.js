@@ -25,20 +25,24 @@ export const apiFetch = async (url, options, token) => {
 
 // export const apiFetch = async (url, options, token) => {
 //   try {
-//     const headers = options.headers || {};
+//     const headers = { ...options.headers };
 //     if (token) {
 //       headers["Authorization"] = token;
 //     }
 
 //     const response = await axios({
-//       method: options.method,
 //       url: API_BASE_URL + url,
+//       method: options.method,
 //       headers: headers,
 //       data: options.body,
 //     });
 
 //     return { data: response.data };
 //   } catch (error) {
-//     return { error: error.response ? error.response.data : error.message };
+//     if (error.response) {
+//       return { error: error.response.data };
+//     } else {
+//       return { error: error.message };
+//     }
 //   }
 // };

@@ -15,7 +15,7 @@ export const userSchema = Joi.object({
     }),
   password: Joi.string()
     .min(8)
-    .max(20)
+    .max(30)
     .when("$isSignUp", { is: true, then: Joi.required() })
     .messages({
       "string.min": "Das Passwort muss mindestens {#limit} Zeichen lang sein",
