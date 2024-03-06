@@ -7,26 +7,23 @@ export const getAccounts = asyncHandler(async (req, res, next) => {
   const { userId } = req;
   const user = await User.findById(userId).select("accounts");
   user.accounts.forEach((account) => {
-    try {
-      if (
-        account.password &&
-        account.password.iv &&
-        account.password.encryptedData
-      ) {
-        const decryptedPassword = decrypt(account.password);
-        account.password = decryptedPassword;
-      } else {
-        throw new ErrorResponse({
-          message: `Passwort für Account ${account.name} ist nicht verschlüsselt.`,
-          statusCode: 500,
-          errorType: "Internal Server Error",
-          errorCode: "AUTH_006",
-        });
-      }
-    } catch (error) {
-      console.error(error);
+    if (
+      account.password &&
+      account.password.iv &&
+      account.password.encryptedData
+    ) {
+      const decryptedPassword = decrypt(account.password);
+      account.password = decryptedPassword;
+    } else {
+      throw new ErrorResponse({
+        message: `Passwort für Account ${account.name} ist nicht verschlüsselt.`,
+        statusCode: 500,
+        errorType: "Internal Server Error",
+        errorCode: "ACCOUNT_AUTH_001",
+      });
     }
   });
+
   res.status(200).json(user);
 });
 
@@ -38,17 +35,19 @@ export const addAccount = asyncHandler(async (req, res, next) => {
   account.password = encryptedPassword;
 
   const user = await User.findById(userId);
+
   if (!user) {
     throw new ErrorResponse({
-      message: `User nicht gefunden.`,
+      message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "AUTH_007",
+      errorCode: "ACCOUNT_AUTH_002",
     });
   }
 
   user.accounts.push(account);
   await user.save();
+
   res.status(200).json({ message: "Account erfolgreich hinzugefügt.", user });
 });
 
@@ -61,24 +60,26 @@ export const editAccount = asyncHandler(async (req, res, next) => {
   updatedAccount.password = encryptedPassword;
 
   const user = await User.findById(userId);
+
   if (!user) {
     throw new ErrorResponse({
-      message: `User nicht gefunden.`,
+      message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "AUTH_008",
+      errorCode: "ACCOUNT_AUTH_003",
     });
   }
 
   const accountIndex = user.accounts.findIndex(
-    (acc) => acc._id.toString() === accountId
+    (acc) => acc._id.toString() === accountId,
   );
+
   if (accountIndex === -1) {
     throw new ErrorResponse({
-      message: `Account nicht gefunden.`,
+      message: "Account nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "AUTH_009",
+      errorCode: "ACCOUNT_AUTH_004",
     });
   }
 
@@ -93,18 +94,20 @@ export const deleteAccount = asyncHandler(async (req, res, next) => {
   const { accountId } = req.params;
 
   const user = await User.findById(userId);
+
   if (!user) {
     throw new ErrorResponse({
-      message: `User nicht gefunden.`,
+      message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "AUTH_010",
+      errorCode: "ACCOUNT_AUTH_005",
     });
   }
 
   user.accounts = user.accounts.filter(
-    (acc) => acc._id.toString() !== accountId
+    (acc) => acc._id.toString() !== accountId,
   );
+
   await user.save();
 
   res.status(200).json({ message: "Account erfolgreich gelöscht.", user });

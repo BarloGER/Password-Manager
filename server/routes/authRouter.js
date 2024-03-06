@@ -37,13 +37,13 @@ authRouter.post(
   "/me/accounts",
   verifyToken,
   validateJoi(addAccountSchema),
-  addAccount
+  addAccount,
 );
 authRouter.put(
   "/me/accounts/:accountId",
   verifyToken,
   validateJoi(editAccountSchema),
-  editAccount
+  editAccount,
 );
 authRouter.delete("/me/accounts/:accountId", verifyToken, deleteAccount);
 

@@ -11,7 +11,7 @@ const verifyToken = asyncHandler(async (req, res, next) => {
       message: "Bitte zuerst einloggen.",
       statusCode: 401,
       errorType: "Unauthorized",
-      errorCode: "AUTH_005",
+      errorCode: "VERIFY_TOKEN_001",
     });
   }
   try {
@@ -23,7 +23,7 @@ const verifyToken = asyncHandler(async (req, res, next) => {
       message: "Ungültiger Token",
       statusCode: 401,
       errorType: "Unauthorized",
-      errorCode: "AUTH_006",
+      errorCode: "VERIFY_TOKEN_002",
     });
   }
 });

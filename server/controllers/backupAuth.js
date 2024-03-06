@@ -1,38 +1,41 @@
 import User from "../models/User.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ErrorResponse from "../utils/ErrorResponse.js";
-import validateJoi from "../middlewares/validateJoi.js";
 import { backupSchema } from "../joi/backupSchema.js";
-import { encrypt, decrypt } from "../utils/crypto.js";
+import { decrypt } from "../utils/crypto.js";
 
 export const downloadBackup = asyncHandler(async (req, res, next) => {
   const { userId } = req;
   const user = await User.findById(userId).select("-password");
+
   if (!user) {
     return next(
       new ErrorResponse({
         message: "User nicht gefunden.",
         statusCode: 404,
         errorType: "Not Found",
-        errorCode: "USER_001",
-      })
+        errorCode: "BACKUP_AUTH_001",
+      }),
     );
   }
+
   const backup = JSON.stringify(user);
+
   res.status(200).send(backup);
 });
 
 export const downloadBackupDecrypted = asyncHandler(async (req, res, next) => {
   const { userId } = req;
   const user = await User.findById(userId).select("-password");
+
   if (!user) {
     return next(
       new ErrorResponse({
         message: "User nicht gefunden.",
         statusCode: 404,
         errorType: "Not Found",
-        errorCode: "USER_002",
-      })
+        errorCode: "BACKUP_AUTH_002",
+      }),
     );
   }
 
@@ -50,8 +53,8 @@ export const downloadBackupDecrypted = asyncHandler(async (req, res, next) => {
             message: `Fehler beim Entschlüsseln des Passworts für Account ${account.name}.`,
             statusCode: 500,
             errorType: "Internal Server Error",
-            errorCode: "ENCRYPT_001",
-          })
+            errorCode: "BACKUP_AUTH_003",
+          }),
         );
       }
     }
@@ -59,6 +62,7 @@ export const downloadBackupDecrypted = asyncHandler(async (req, res, next) => {
   });
 
   const backup = JSON.stringify(user);
+
   res.status(200).send(backup);
 });
 
@@ -74,8 +78,8 @@ export const uploadBackup = asyncHandler(async (req, res, next) => {
         message: "Backup-Daten konnten nicht geparst werden.",
         statusCode: 400,
         errorType: "Bad Request",
-        errorCode: "BACKUP_004",
-      })
+        errorCode: "BACKUP_AUTH_004",
+      }),
     );
   }
 
@@ -86,8 +90,8 @@ export const uploadBackup = asyncHandler(async (req, res, next) => {
         message: error.details[0].message,
         statusCode: 400,
         errorType: "Validation Error",
-        errorCode: "BACKUP_005",
-      })
+        errorCode: "BACKUP_AUTH_005",
+      }),
     );
   }
 
@@ -98,8 +102,8 @@ export const uploadBackup = asyncHandler(async (req, res, next) => {
         message: "User nicht gefunden.",
         statusCode: 404,
         errorType: "Not Found",
-        errorCode: "USER_003",
-      })
+        errorCode: "BACKUP_AUTH_006",
+      }),
     );
   }
 
@@ -116,8 +120,8 @@ export const uploadBackup = asyncHandler(async (req, res, next) => {
         message: "Fehler beim Speichern des Backups.",
         statusCode: 500,
         errorType: "Internal Server Error",
-        errorCode: "BACKUP_006",
-      })
+        errorCode: "BACKUP_AUTH_007",
+      }),
     );
   }
 });
