@@ -23,7 +23,7 @@ const accountSchema = Joi.object({
   username: Joi.string().allow("").messages({
     "string.empty": "Benutzername darf leer sein.",
   }),
-  email: Joi.string().email().messages({
+  email: Joi.string().email().allow("").messages({
     "string.email": "Ungültiges E-Mail-Format.",
     "string.empty": "E-Mail darf nicht leer sein.",
   }),
