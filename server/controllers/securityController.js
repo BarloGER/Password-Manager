@@ -39,7 +39,7 @@ export const analyzePasswords = asyncHandler(async (req, res, next) => {
           message: `Passwort für Account ${account.name} ist nicht verschlüsselt.`,
           statusCode: 500,
           errorType: "Internal Server Error",
-          errorCode: "SECURITY_AUTH_001",
+          errorCode: "SECURITY_CONTROLLER_001",
         });
       }
     } catch (error) {
@@ -48,7 +48,7 @@ export const analyzePasswords = asyncHandler(async (req, res, next) => {
           message: `Fehler beim Verarbeiten des Accounts: ${account.name}`,
           statusCode: 500,
           errorType: "Internal Server Error",
-          errorCode: "SECURITY_AUTH_002",
+          errorCode: "SECURITY_CONTROLLER_002",
         }),
       );
     }

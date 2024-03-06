@@ -4,20 +4,20 @@ import {
   addAccount,
   editAccount,
   deleteAccount,
-} from "../controllers/accountAuth.js";
+} from "../controllers/accountController.js";
 import {
   getUser,
   signIn,
   signUp,
   editUser,
   deleteUser,
-} from "../controllers/userAuth.js";
+} from "../controllers/userController.js";
 import {
   downloadBackup,
   downloadBackupDecrypted,
   uploadBackup,
-} from "../controllers/backupAuth.js";
-import { analyzePasswords } from "../controllers/securityAuth.js";
+} from "../controllers/backupController.js";
+import { analyzePasswords } from "../controllers/securityController.js";
 import { userSchema } from "../joi/userSchema.js";
 import { addAccountSchema, editAccountSchema } from "../joi/accountSchema.js";
 import validateJoi from "../middlewares/validateJoi.js";

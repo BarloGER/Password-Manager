@@ -19,7 +19,7 @@ export const getAccounts = asyncHandler(async (req, res, next) => {
         message: `Passwort für Account ${account.name} ist nicht verschlüsselt.`,
         statusCode: 500,
         errorType: "Internal Server Error",
-        errorCode: "ACCOUNT_AUTH_001",
+        errorCode: "ACCOUNT_CONTROLLER_001",
       });
     }
   });
@@ -41,7 +41,7 @@ export const addAccount = asyncHandler(async (req, res, next) => {
       message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "ACCOUNT_AUTH_002",
+      errorCode: "ACCOUNT_CONTROLLER_002",
     });
   }
 
@@ -66,7 +66,7 @@ export const editAccount = asyncHandler(async (req, res, next) => {
       message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "ACCOUNT_AUTH_003",
+      errorCode: "ACCOUNT_CONTROLLER_003",
     });
   }
 
@@ -79,7 +79,7 @@ export const editAccount = asyncHandler(async (req, res, next) => {
       message: "Account nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "ACCOUNT_AUTH_004",
+      errorCode: "ACCOUNT_CONTROLLER_004",
     });
   }
 
@@ -100,7 +100,7 @@ export const deleteAccount = asyncHandler(async (req, res, next) => {
       message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "ACCOUNT_AUTH_005",
+      errorCode: "ACCOUNT_CONTROLLER_005",
     });
   }
 

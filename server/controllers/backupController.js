@@ -14,7 +14,7 @@ export const downloadBackup = asyncHandler(async (req, res, next) => {
         message: "User nicht gefunden.",
         statusCode: 404,
         errorType: "Not Found",
-        errorCode: "BACKUP_AUTH_001",
+        errorCode: "BACKUP_CONTROLLER_001",
       }),
     );
   }
@@ -34,7 +34,7 @@ export const downloadBackupDecrypted = asyncHandler(async (req, res, next) => {
         message: "User nicht gefunden.",
         statusCode: 404,
         errorType: "Not Found",
-        errorCode: "BACKUP_AUTH_002",
+        errorCode: "BACKUP_CONTROLLER_002",
       }),
     );
   }
@@ -53,7 +53,7 @@ export const downloadBackupDecrypted = asyncHandler(async (req, res, next) => {
             message: `Fehler beim Entschlüsseln des Passworts für Account ${account.name}.`,
             statusCode: 500,
             errorType: "Internal Server Error",
-            errorCode: "BACKUP_AUTH_003",
+            errorCode: "BACKUP_CONTROLLER_003",
           }),
         );
       }
@@ -78,7 +78,7 @@ export const uploadBackup = asyncHandler(async (req, res, next) => {
         message: "Backup-Daten konnten nicht geparst werden.",
         statusCode: 400,
         errorType: "Bad Request",
-        errorCode: "BACKUP_AUTH_004",
+        errorCode: "BACKUP_CONTROLLER_004",
       }),
     );
   }
@@ -90,7 +90,7 @@ export const uploadBackup = asyncHandler(async (req, res, next) => {
         message: error.details[0].message,
         statusCode: 400,
         errorType: "Validation Error",
-        errorCode: "BACKUP_AUTH_005",
+        errorCode: "BACKUP_CONTROLLER_005",
       }),
     );
   }
@@ -102,7 +102,7 @@ export const uploadBackup = asyncHandler(async (req, res, next) => {
         message: "User nicht gefunden.",
         statusCode: 404,
         errorType: "Not Found",
-        errorCode: "BACKUP_AUTH_006",
+        errorCode: "BACKUP_CONTROLLER_006",
       }),
     );
   }
@@ -120,7 +120,7 @@ export const uploadBackup = asyncHandler(async (req, res, next) => {
         message: "Fehler beim Speichern des Backups.",
         statusCode: 500,
         errorType: "Internal Server Error",
-        errorCode: "BACKUP_AUTH_007",
+        errorCode: "BACKUP_CONTROLLER_007",
       }),
     );
   }

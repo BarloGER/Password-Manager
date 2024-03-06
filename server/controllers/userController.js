@@ -13,7 +13,7 @@ export const getUser = asyncHandler(async (req, res, next) => {
       message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "USER_AUTH_001",
+      errorCode: "USER_CONTROLLER_001",
     });
   }
   res.status(200).json(user);
@@ -31,7 +31,7 @@ export const signIn = asyncHandler(async (req, res, next) => {
       message: "Es ist kein User mit dieser E-Mail registriert.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "USER_AUTH_002",
+      errorCode: "USER_CONTROLLER_002",
     });
 
   const match = await bcrypt.compare(password, found.password);
@@ -41,7 +41,7 @@ export const signIn = asyncHandler(async (req, res, next) => {
       message: "Falsches Passwort.",
       statusCode: 401,
       errorType: "Unauthorized",
-      errorCode: "USER_AUTH_003",
+      errorCode: "USER_CONTROLLER_003",
     });
 
   const token = jwt.sign({ _id: found._id }, process.env.SECRET_KEY);
@@ -62,7 +62,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
       message: "E-Mail existiert bereits.",
       statusCode: 403,
       errorType: "Validation Error",
-      errorCode: "USER_AUTH_004",
+      errorCode: "USER_CONTROLLER_004",
     });
 
   if (foundUserByUsername)
@@ -70,7 +70,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
       message: "Benutzername existiert bereits.",
       statusCode: 403,
       errorType: "Validation Error",
-      errorCode: "USER_AUTH_005",
+      errorCode: "USER_CONTROLLER_005",
     });
 
   const hashPassword = await bcrypt.hash(password, 5);
@@ -96,7 +96,7 @@ export const editUser = asyncHandler(async (req, res, next) => {
       message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "USER_AUTH_006",
+      errorCode: "USER_CONTROLLER_006",
     });
   }
 
@@ -108,7 +108,7 @@ export const editUser = asyncHandler(async (req, res, next) => {
       message: "E-Mail existiert bereits.",
       statusCode: 403,
       errorType: "Validation Error",
-      errorCode: "USER_AUTH_007",
+      errorCode: "USER_CONTROLLER_007",
     });
   }
 
@@ -120,7 +120,7 @@ export const editUser = asyncHandler(async (req, res, next) => {
       message: "Benutzername existiert bereits.",
       statusCode: 403,
       errorType: "Validation Error",
-      errorCode: "USER_AUTH_008",
+      errorCode: "USER_CONTROLLER_008",
     });
   }
 
@@ -149,7 +149,7 @@ export const deleteUser = asyncHandler(async (req, res, next) => {
       message: "User nicht gefunden.",
       statusCode: 404,
       errorType: "Not Found",
-      errorCode: "USER_AUTH_009",
+      errorCode: "USER_CONTROLLER_009",
     });
   }
 
