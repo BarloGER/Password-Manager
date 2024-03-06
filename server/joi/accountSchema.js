@@ -6,14 +6,14 @@ export const addAccountSchema = Joi.object({
       "string.empty": "Account-ID darf nicht leer sein.",
       "any.required": "Account-ID ist erforderlich.",
     }),
-    name: Joi.string().alphanum().min(3).max(20).required().messages({
+    name: Joi.string().min(1).max(30).required().messages({
       "string.min":
         "Der Account-Name muss mindestens {#limit} Zeichen lang sein",
       "string.max":
         "Der Account-Name darf höchstens {#limit} Zeichen lang sein",
       "string.empty": "Der Account-Name muss angegeben werden",
     }),
-    username: Joi.string().allow("").alphanum().min(3).max(20).messages({
+    username: Joi.string().allow("").min(1).max(30).messages({
       "string.min":
         "Der Benutzername muss mindestens {#limit} Zeichen lang sein",
       "string.max":
@@ -25,7 +25,7 @@ export const addAccountSchema = Joi.object({
       .messages({
         "string.email": "Die E-Mail muss mit .com, .de oder .net enden",
       }),
-    password: Joi.string().min(8).max(20).required().messages({
+    password: Joi.string().min(8).max(30).required().messages({
       "string.min": "Das Passwort muss mindestens {#limit} Zeichen lang sein",
       "string.max": "Das Passwort darf höchstens {#limit} Zeichen lang sein",
       "string.empty": "Das Passwort muss angegeben werden",
@@ -47,14 +47,14 @@ export const editAccountSchema = Joi.object({
       "string.empty": "Account-ID darf nicht leer sein.",
       "any.required": "Account-ID ist erforderlich.",
     }),
-    name: Joi.string().alphanum().min(3).max(20).required().messages({
+    name: Joi.string().min(1).max(30).required().messages({
       "string.min":
         "Der Account-Name muss mindestens {#limit} Zeichen lang sein",
       "string.max":
         "Der Account-Name darf höchstens {#limit} Zeichen lang sein",
       "string.empty": "Der Account-Name muss angegeben werden",
     }),
-    username: Joi.string().alphanum().min(3).max(20).allow("").messages({
+    username: Joi.string().min(1).max(30).allow("").messages({
       "string.min":
         "Der Benutzername muss mindestens {#limit} Zeichen lang sein",
       "string.max":
@@ -66,7 +66,7 @@ export const editAccountSchema = Joi.object({
       .messages({
         "string.email": "Die E-Mail muss mit .com, .de oder .net enden",
       }),
-    password: Joi.string().min(8).max(20).required().messages({
+    password: Joi.string().min(8).max(30).required().messages({
       "string.min": "Das Passwort muss mindestens {#limit} Zeichen lang sein",
       "string.max": "Das Passwort darf höchstens {#limit} Zeichen lang sein",
       "string.empty": "Das Passwort muss angegeben werden",
